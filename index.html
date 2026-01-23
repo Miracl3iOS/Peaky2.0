@@ -8,14 +8,15 @@
 
   <style>
     :root {
-      --bg: #f3f4f6; /* Светлый фон с холодным оттенком */
-      --bg-light: #e8ebf1; /* Очень светлый холодный оттенок */
-      --bg-dark: #d4d8e3; /* Темно-серый с синим оттенком */
+      --bg: #e0e6f0; /* Светлый фон с холодным оттенком */
+      --bg-light: #f5faff; /* Очень светлый холодный оттенок */
+      --bg-dark: #cfd7e6; /* Темно-серый с синим оттенком */
       --text: #333; /* Тёмный текст для контраста */
-      --button-bg: #d1d8e0; /* Светло-серый для кнопок */
+      --button-bg: #d6e0f2; /* Светлый серый для кнопок */
       --button-hover-bg: #aeb6c2; /* Темнее для ховера */
       --button-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15), -4px -4px 8px rgba(255, 255, 255, 0.3); /* Тени для кнопок */
       --highlight: linear-gradient(145deg, #b0c3d9, #a4b8d2); /* Холодный серебристо-серый градиент для выделенных элементов */
+      --button-text: #7a7a7a; /* Текст на кнопках светлый серый */
     }
 
     * {
@@ -66,6 +67,8 @@
       pointer-events: none;
       animation: snow 10s linear infinite;
       opacity: 0.5;
+      font-size: 16px;
+      color: white;
     }
 
     .snowflake:nth-child(odd) {
@@ -169,7 +172,7 @@
       justify-content: center;
       font-weight: 600;
       letter-spacing: 1px;
-      color: var(--text);
+      color: var(--button-text);
       background: var(--button-bg);
       box-shadow: var(--button-shadow);
       transition: all 0.3s ease;
