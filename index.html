@@ -8,38 +8,27 @@
 
 <style>
 :root{
-  /* ===== фон / неоморф ===== */
-  --bg:#F4F6F9;     /* молочно-серый */
-  --bg2:#FFFFFF;    /* белый */
-  --panel:#FFFFFF;
-  --panel2:#F0F0F0;
+  /* Фон */
+  --bg:#F4F6F9;
+  --bg2:#FFFFFF;
 
+  /* Текст */
   --text:#2A2A2A;
   --text2:#1C1C1C;
   --muted:#A1A1A1;
 
-  /* тени (очень мягкие) */
-  --shadowDark: rgba(180, 188, 202, .70);
-  --shadowLight: rgba(255,255,255,.95);
+  /* Неоморф-тени */
+  --shadow: 12px 12px 26px rgba(170,180,195,.45), -12px -12px 26px rgba(255,255,255,.92);
 
-  /* shimmer / металл (платина) */
-  --platA:#EEF2F7;
-  --platB:#D7DEE8;
-  --platC:#FFFFFF;
-  --platD:#B7C0CC;
-  --shine: rgba(255,255,255,.55);
+  /* “Платина/серебро” */
+  --plat1:#D3D9E1;
+  --plat2:#B0B7C1;
+  --plat3:#FFFFFF;
+  --plat4:#A2A9B1;
 
-  /* ассеты */
-  --hero:none;
-  --work:none;
-  --banner:none;
-
-  /* высота hero (уменьшена относительно твоего 56vh) */
-  --heroH: min(44vh, 420px);
-  --heroMin: 260px;
-
-  /* общая тень как в твоём коде, но светлая */
-  --shadow: 12px 12px 26px rgba(170,180,195,.45), -12px -12px 26px rgba(255,255,255,.90);
+  /* Высоты */
+  --heroH:min(40vh, 380px);
+  --heroMin:240px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -55,14 +44,14 @@ a,button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 button{border:0;background:none;cursor:pointer}
 a{text-decoration:none}
 
-/* ===== page wrap (мобильно как у тебя) ===== */
+/* Контейнер под мобилку */
 .page{
   width:min(430px,100%);
   margin:0 auto;
   min-height:100dvh;
 }
 
-/* ---------- HERO (GIF/IMG) ---------- */
+/* ---------- HERO VIDEO ---------- */
 .hero{
   position:relative;
   width:100%;
@@ -75,7 +64,8 @@ a{text-decoration:none}
   box-shadow:var(--shadow);
 }
 
-.heroMedia{
+/* видео */
+.heroVideo{
   position:absolute;
   inset:0;
   width:100%;
@@ -83,21 +73,20 @@ a{text-decoration:none}
   object-fit:cover;
   object-position:center;
   pointer-events:none;
-  display:block;
 }
 
-/* лёгкая “дымка” как в референсе */
+/* мягкая дымка поверх */
 .hero::after{
   content:"";
   position:absolute;
   inset:0;
   background:
-    radial-gradient(900px 360px at 35% 20%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%),
-    linear-gradient(180deg, rgba(255,255,255,.12), rgba(0,0,0,.05));
+    radial-gradient(900px 360px at 30% 18%, rgba(255,255,255,.62), rgba(255,255,255,0) 62%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(0,0,0,.06));
   pointer-events:none;
 }
 
-/* MENU BUTTON (как в твоём коде по форме, но светлый неоморф) */
+/* MENU BUTTON (как в твоём коде по виду, но по цветам серый неоморф) */
 .menuBtn{
   position:absolute;
   top:14px;
@@ -113,30 +102,33 @@ a{text-decoration:none}
   z-index:5;
   transition:transform .14s ease, filter .14s ease;
 }
-.menuBtn svg{width:22px;height:22px;color:rgba(42,42,42,.9)}
+.menuBtn svg{width:22px;height:22px;color:rgba(28,28,28,.92)}
 .menuBtn:active{transform:scale(.96);filter:brightness(.98)}
 
-/* опциональный баннер поверх hero справа (появится если есть banner.*) */
+/* БАННЕР поверх HERO справа сверху (появится если есть banner.*) */
 .heroBanner{
   position:absolute;
-  right:70px;
   top:14px;
+  right:70px;
   height:46px;
-  width:min(52%,220px);
+  width:min(56%,230px);
   border-radius:16px;
-  background:var(--banner), linear-gradient(145deg,var(--bg2),var(--bg));
-  background-size:cover;
-  background-position:center;
-  box-shadow:var(--shadow);
-  display:none;
-  z-index:5;
   overflow:hidden;
+  box-shadow:var(--shadow);
+  z-index:5;
+  display:block;
 }
-.heroBanner::before{
+.heroBannerImg{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.heroBanner::after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,0));
+  background:linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0));
   pointer-events:none;
 }
 
@@ -145,7 +137,7 @@ a{text-decoration:none}
   padding:18px 16px 28px;
 }
 
-/* Заголовок как у тебя по анимации, но платиновый */
+/* Заголовок — жирнее + перелив (как в твоём, но платиновый) */
 .h1{
   text-align:center;
   font-size:clamp(30px,7vw,44px);
@@ -154,9 +146,9 @@ a{text-decoration:none}
   color:transparent;
   background:linear-gradient(90deg,
     #1c1c1c,
-    #9aa4b2,
+    #7f8a99,
     #1c1c1c,
-    #c7cdd7,
+    #b7c0cc,
     #1c1c1c
   );
   background-size:220% auto;
@@ -175,7 +167,7 @@ a{text-decoration:none}
   line-height:1.45;
 }
 
-/* ---------- WORK BANNER ---------- */
+/* ---------- WORK BANNER (кнопка) ---------- */
 .workBanner{
   position:relative;
   margin-top:18px;
@@ -186,7 +178,7 @@ a{text-decoration:none}
   background:linear-gradient(145deg,var(--bg2),var(--bg));
   display:block;
 }
-.workMedia{
+.workVideo{
   position:absolute;
   inset:0;
   width:100%;
@@ -194,19 +186,16 @@ a{text-decoration:none}
   object-fit:cover;
   object-position:center;
   pointer-events:none;
-  display:block;
 }
 .workBanner::after{
   content:"";
   position:absolute;
   inset:0;
   background:
-    radial-gradient(800px 280px at 20% 50%, rgba(255,255,255,.38), rgba(255,255,255,0) 60%),
-    linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.08));
+    radial-gradient(800px 280px at 20% 55%, rgba(255,255,255,.42), rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.10));
   pointer-events:none;
 }
-
-/* Надпись РАБОТА — платиновая, с тем же flow */
 .workTitle{
   position:absolute;
   inset:0;
@@ -217,11 +206,11 @@ a{text-decoration:none}
   letter-spacing:1px;
   color:transparent;
   background:linear-gradient(90deg,
-    #f8fafc,
+    var(--plat3),
     #cfd6df,
-    #ffffff,
+    var(--plat3),
     #aeb7c3,
-    #f8fafc
+    var(--plat3)
   );
   background-size:220% auto;
   -webkit-background-clip:text;
@@ -249,17 +238,17 @@ a{text-decoration:none}
   letter-spacing:.6px;
   color:var(--text2);
 
-  /* платиновый “металл”: сверху мягкий бликующий слой + основной градиент */
+  /* платиново-серебряный градиент */
   background:
-    linear-gradient(180deg, rgba(255,255,255,.58), rgba(255,255,255,0) 38%),
+    linear-gradient(180deg, rgba(255,255,255,.60), rgba(255,255,255,0) 38%),
     linear-gradient(120deg,
-      #b6bfcb,
-      var(--platA),
-      var(--platB),
-      var(--platC),
-      var(--platD),
-      var(--platA),
-      #b6bfcb
+      #aeb7c3,
+      var(--plat1),
+      #e8edf5,
+      var(--plat3),
+      var(--plat2),
+      #e8edf5,
+      #aeb7c3
     );
 
   box-shadow:var(--shadow);
@@ -268,14 +257,14 @@ a{text-decoration:none}
   transition:transform .15s ease, filter .15s ease;
 }
 
-/* перелив как в твоём коде (shimmer) */
+/* shimmer как в твоём коде */
 .metalBtn::after{
   content:"";
   position:absolute;
   inset:-60%;
   background:linear-gradient(115deg,
     transparent 40%,
-    var(--shine) 50%,
+    rgba(255,255,255,.55) 50%,
     transparent 60%
   );
   transform:translateX(-50%) rotate(12deg);
@@ -359,15 +348,29 @@ a{text-decoration:none}
 </head>
 
 <body>
-
 <div class="page">
 
   <!-- HERO -->
   <section class="hero">
-    <img class="heroMedia" id="heroImg" alt="Hero" />
+    <video
+      class="heroVideo"
+      id="heroVideo"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="metadata"
+      poster="hero.jpg"
+      disablepictureinpicture
+      controlslist="nodownload noplaybackrate noremoteplayback"
+    >
+      <source src="hero.mp4" type="video/mp4">
+    </video>
 
-    <!-- баннер поверх hero (опционально) -->
-    <a class="heroBanner" id="heroBanner" href="#" aria-label="Баннер"></a>
+    <!-- БАННЕР (просто положи banner.png / banner.webp / banner.gif рядом) -->
+    <a class="heroBanner" href="#" id="heroBanner" aria-label="Баннер">
+      <img class="heroBannerImg" id="heroBannerImg" alt="" />
+    </a>
 
     <button class="menuBtn" id="openMenu" aria-label="Открыть меню">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -382,7 +385,20 @@ a{text-decoration:none}
 
     <!-- WORK -->
     <a class="workBanner" href="jobs.html" aria-label="Работа">
-      <img class="workMedia" id="workImg" alt="Работа" />
+      <video
+        class="workVideo"
+        id="workVideo"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="metadata"
+        poster="work.jpg"
+        disablepictureinpicture
+        controlslist="nodownload noplaybackrate noremoteplayback"
+      >
+        <source src="work.mp4" type="video/mp4">
+      </video>
       <div class="workTitle">РАБОТА</div>
     </a>
 
@@ -400,6 +416,7 @@ a{text-decoration:none}
       Сделано — <a href="https://t.me/663studio" target="_blank" rel="noopener">твоя ссылка</a>
     </footer>
   </main>
+
 </div>
 
 <!-- MENU -->
@@ -421,46 +438,59 @@ document.getElementById('openMenu').onclick = () => sheet.classList.add('active'
 document.getElementById('closeSheet').onclick = () => sheet.classList.remove('active');
 window.addEventListener('keydown', (e) => { if(e.key === 'Escape') sheet.classList.remove('active'); });
 
-/* ===== ASSET AUTOLOAD (gif/png/webp) ===== */
-async function ok(u){
-  try{
-    const r = await fetch(u + '?v=' + Date.now(), { cache:'no-store' });
-    return r.ok;
-  }catch{ return false; }
-}
-async function first(list){
-  for(const p of list){
-    if(await ok(p)) return p;
+/* ===== баннер: попробуем подхватить banner.* без fetch (работает и file://) ===== */
+(function(){
+  const wrap = document.getElementById('heroBanner');
+  const img  = document.getElementById('heroBannerImg');
+  const list = ['banner.webp','banner.png','banner.gif','Banner.webp','Banner.png','Banner.gif'];
+  let i = 0;
+
+  function tryNext(){
+    if(i >= list.length){
+      wrap.style.display = 'none';
+      return;
+    }
+    img.src = list[i++] + '?v=' + Date.now();
   }
-  return null;
-}
-
-(async()=>{
-  const heroImg = document.getElementById('heroImg');
-  const workImg = document.getElementById('workImg');
-  const heroBanner = document.getElementById('heroBanner');
-
-  // hero (крокодил гифка)
-  const hero = await first([
-    'hero.gif','hero.webp','hero.png','hero.jpg',
-    'croc.gif','krokodil.gif','crocodile.gif'
-  ]);
-  if(hero) heroImg.src = hero + '?v=' + Date.now();
-  else heroImg.style.display = 'none';
-
-  // work (баннер работа гифка)
-  const work = await first(['work.gif','work.webp','work.png','work.jpg','job.gif']);
-  if(work) workImg.src = work + '?v=' + Date.now();
-  else workImg.style.display = 'none';
-
-  // banner overlay (опционально)
-  const banner = await first(['banner.webp','banner.png','banner.gif']);
-  if(banner){
-    heroBanner.style.display = 'block';
-    heroBanner.style.backgroundImage = `url("${banner}?v=${Date.now()}")`;
-    // heroBanner.href = '...'; // сюда ссылку баннера
-  }
+  img.onload = () => { wrap.style.display = 'block'; };
+  img.onerror = () => { tryNext(); };
+  tryNext();
 })();
+
+/* ===== VIDEO AUTOPLAY HARDENING (iOS/Android/PC) ===== */
+const vids = [
+  document.getElementById('heroVideo'),
+  document.getElementById('workVideo')
+].filter(Boolean);
+
+function tryPlay(v){
+  if(!v) return;
+  v.muted = true;
+  v.playsInline = true;
+  const p = v.play();
+  if(p && typeof p.catch === 'function') p.catch(()=>{});
+}
+
+function kickAll(){ vids.forEach(tryPlay); }
+
+/* 1) сразу */
+kickAll();
+/* 2) после load */
+window.addEventListener('load', kickAll);
+/* 3) на первый тап/скролл */
+['touchstart','pointerdown','click','scroll'].forEach(evt=>{
+  window.addEventListener(evt, kickAll, { once:true, passive:true });
+});
+/* 4) при возврате вкладки */
+document.addEventListener('visibilitychange', ()=>{
+  if(!document.hidden) kickAll();
+});
+/* 5) если пауза — поднимем */
+vids.forEach(v=>{
+  v.addEventListener('pause', ()=>{
+    if(!document.hidden) tryPlay(v);
+  });
+});
 </script>
 
 </body>
