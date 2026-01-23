@@ -1,369 +1,368 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>ALLIGATORRB</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>ALLIGATORRB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
 
-<style>
-:root {
-  --bg: #e0e6f0; /* Светлый фон */
-  --bg-light: #f5faff; /* Очень светлый оттенок */
-  --text: #333; /* Темный текст для контраста */
-  --button-bg: #d6e0f2; /* Светлый серый для кнопок */
-  --button-hover-bg: #c0c8d6; /* Немного темнее для ховера */
-  --button-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2), -4px -4px 8px rgba(255, 255, 255, 0.5); /* Тени для кнопок */
-  --goldA: #D4AF37;
-  --goldB: #C9A24D;
-  --goldText: #0F1115;
-  --muted: #9CA3AF;
-}
+  <style>
+    :root {
+      --bg: #f3f4f6; /* Светлый фон с холодным оттенком */
+      --bg-light: #e8ebf1; /* Очень светлый холодный оттенок */
+      --bg-dark: #d4d8e3; /* Темно-серый с синим оттенком */
+      --text: #333; /* Тёмный текст для контраста */
+      --button-bg: #d1d8e0; /* Светло-серый для кнопок */
+      --button-hover-bg: #aeb6c2; /* Темнее для ховера */
+      --button-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15), -4px -4px 8px rgba(255, 255, 255, 0.3); /* Тени для кнопок */
+      --highlight: linear-gradient(145deg, #b0c3d9, #a4b8d2); /* Холодный серебристо-серый градиент для выделенных элементов */
+    }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-html, body {
-  height: 100%;
-}
+    html, body {
+      height: 100%;
+    }
 
-body {
-  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-a, button {
-  font: inherit;
-  color: inherit;
-  -webkit-tap-highlight-color: transparent;
-}
+    a, button {
+      font: inherit;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-button {
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
+    button {
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
 
-a {
-  text-decoration: none;
-}
+    a {
+      text-decoration: none;
+    }
 
-/* ---------- HERO ---------- */
-.hero {
-  position: relative;
-  width: 100%;
-  height: min(56vh, 520px);
-  min-height: 320px;
-  overflow: hidden;
-  background: #fff; /* Фон светлый */
-  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.1), -6px -6px 15px rgba(255, 255, 255, 0.2); /* Легкая неоморфная тень */
-}
+    /* ---------- SNOW EFFECT ---------- */
+    @keyframes snow {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
 
-.heroVideo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  pointer-events: none;
-}
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: snow 10s linear infinite;
+      opacity: 0.5;
+    }
 
-/* ---------- MENU BUTTON ---------- */
-.menuBtn {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: rgba(26, 20, 17, 0.6);
-  backdrop-filter: blur(10px);
-  box-shadow: var(--button-shadow);
-  z-index: 5;
-}
+    .snowflake:nth-child(odd) {
+      left: 20%;
+      animation-duration: 12s;
+    }
 
-.menuBtn svg {
-  width: 22px;
-  height: 22px;
-  color: var(--goldA);
-}
+    .snowflake:nth-child(even) {
+      left: 60%;
+      animation-duration: 8s;
+    }
 
-.menuBtn:active {
-  transform: scale(0.96);
-}
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: min(56vh, 520px);
+      min-height: 320px;
+      overflow: hidden;
+      background: var(--bg-light);
+      box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.1), -6px -6px 15px rgba(255, 255, 255, 0.2);
+    }
 
-/* ---------- CONTENT ---------- */
-.wrap {
-  width: min(430px, 100%);
-  margin: 0 auto;
-  padding: 18px 16px 28px;
-}
+    .heroVideo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+    }
 
-.h1 {
-  text-align: center;
-  font-size: clamp(30px, 7vw, 44px);
-  font-weight: 900;
-  letter-spacing: 1.2px;
-  color: transparent;
-  background: linear-gradient(90deg, #fff6cf, var(--goldA), #f2e8c4, var(--goldB), #fff6cf);
-  background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: goldFlow 10s linear infinite;
-}
+    /* ---------- MENU BUTTON ---------- */
+    .menuBtn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(26, 20, 17, 0.6);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--button-shadow);
+      z-index: 5;
+    }
 
-@keyframes goldFlow {
-  to {
-    background-position: 220% 50%;
-  }
-}
+    .menuBtn svg {
+      width: 22px;
+      height: 22px;
+      color: var(--highlight);
+    }
 
-.lead {
-  margin-top: 10px;
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.45;
-}
+    .menuBtn:active {
+      transform: scale(0.96);
+    }
 
-/* ---------- METAL BUTTONS ---------- */
-.metalBtn {
-  position: relative;
-  height: 50px;
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--text);
-  background: linear-gradient(145deg, var(--button-bg), var(--bg-light)); /* Металлический градиент */
-  box-shadow: var(--button-shadow); /* Тени для кнопок */
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-}
+    /* ---------- CONTENT ---------- */
+    .wrap {
+      width: min(430px, 100%);
+      margin: 0 auto;
+      padding: 18px 16px 28px;
+    }
 
-.metalBtn:hover {
-  background: linear-gradient(145deg, var(--button-hover-bg), var(--bg-light)); /* Ховер-эффект */
-  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.2), -6px -6px 15px rgba(255, 255, 255, 0.5);
-}
+    .h1 {
+      text-align: center;
+      font-size: clamp(30px, 7vw, 44px);
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      color: transparent;
+      background: var(--highlight);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: goldFlow 10s linear infinite;
+    }
 
-.metalBtn:active {
-  transform: translateY(2px); /* Эффект "вдавливания" */
-  filter: brightness(0.95); /* Немного затемнить при нажатии */
-}
+    @keyframes goldFlow {
+      to {
+        background-position: 220% 50%;
+      }
+    }
 
-/* ---------- WORK BANNER ---------- */
-.workBanner {
-  position: relative;
-  margin-top: 18px;
-  height: 120px;
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: var(--button-shadow);
-  background: var(--bg-light);
-}
+    .lead {
+      margin-top: 10px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
 
-.workTitle {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-size: 26px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  color: transparent;
-  background: linear-gradient(90deg, #fff6cf, var(--goldA), #f2e8c4, var(--goldB), #fff6cf);
-  background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: goldFlow 10s linear infinite;
-  text-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
-}
+    /* ---------- BUTTONS ---------- */
+    .metalBtn {
+      position: relative;
+      height: 50px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--text);
+      background: var(--button-bg);
+      box-shadow: var(--button-shadow);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
 
-/* ---------- MENU SHEET ---------- */
-.sheetWrap {
-  position: fixed;
-  inset: 0;
-  display: none;
-  z-index: 1000;
-}
+    .metalBtn:hover {
+      background: var(--button-hover-bg);
+      box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.2), -6px -6px 15px rgba(255, 255, 255, 0.5);
+    }
 
-.sheetWrap.active {
-  display: block;
-}
+    .metalBtn:active {
+      transform: translateY(2px);
+      filter: brightness(0.95);
+    }
 
-.sheetShade {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-}
+    /* ---------- GRID LAYOUT ---------- */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
 
-.sheet {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: min(86vw, 340px);
-  background: rgba(18, 14, 12, 0.95);
-  padding: 18px;
-  transform: translateX(100%);
-  transition: transform 0.22s ease-out;
-}
+    .grid a {
+      text-align: center;
+    }
 
-.sheetWrap.active .sheet {
-  transform: none;
-}
+    /* ---------- WORK BANNER ---------- */
+    .workBanner {
+      position: relative;
+      margin-top: 18px;
+      height: 120px;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--button-shadow);
+      background: var(--bg-light);
+    }
 
-.sheet h2 {
-  color: var(--text);
-  font-weight: 900;
-  margin: 8px 0 14px;
-}
+    .workTitle {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: transparent;
+      background: var(--highlight);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: goldFlow 10s linear infinite;
+      text-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
+    }
 
-.sheet a {
-  display: block;
-  padding: 14px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
-  margin-bottom: 12px;
-  box-shadow: var(--button-shadow);
-}
+    /* ---------- MENU SHEET ---------- */
+    .sheetWrap {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 1000;
+    }
 
-/* FOOTER */
-.foot {
-  margin-top: 18px;
-  text-align: center;
-  font-size: 12px;
-  color: rgba(156, 163, 175, 0.9);
-}
+    .sheetWrap.active {
+      display: block;
+    }
 
-.foot a {
-  color: rgba(230, 230, 230, 0.9);
-  font-weight: 900;
-  text-decoration: none;
-  border-bottom: 1px dashed rgba(201, 162, 77, 0.55);
-}
+    .sheetShade {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+    }
 
-@media (hover:hover) {
-  .metalBtn:hover {
-    filter: brightness(0.98);
-  }
+    .sheet {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: min(86vw, 340px);
+      background: rgba(18, 14, 12, 0.95);
+      padding: 18px;
+      transform: translateX(100%);
+      transition: transform 0.22s ease-out;
+    }
 
-  .workBanner:hover {
-    transform: translateY(-1px);
-  }
-}
-</style>
+    .sheetWrap.active .sheet {
+      transform: none;
+    }
+
+    .sheet h2 {
+      color: var(--text);
+      font-weight: 900;
+      margin: 8px 0 14px;
+    }
+
+    .sheet a {
+      display: block;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      margin-bottom: 12px;
+      box-shadow: var(--button-shadow);
+    }
+
+    /* FOOTER */
+    .foot {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(156, 163, 175, 0.9);
+    }
+
+    .foot a {
+      color: rgba(230, 230, 230, 0.9);
+      font-weight: 900;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(201, 162, 77, 0.55);
+    }
+
+    @media (hover:hover) {
+      .metalBtn:hover {
+        filter: brightness(0.98);
+      }
+
+      .workBanner:hover {
+        transform: translateY(-1px);
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Snowflakes -->
+  <div class="snowflake" style="animation-delay: 0s;">❄</div>
+  <div class="snowflake" style="animation-delay: 2s;">❄</div>
+  <div class="snowflake" style="animation-delay: 4s;">❄</div>
+  <div class="snowflake" style="animation-delay: 6s;">❄</div>
 
-<!-- HERO -->
-<section class="hero">
-  <video class="heroVideo" id="heroVideo" autoplay loop muted playsinline preload="metadata" poster="hero.jpg" disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback">
-    <source src="hero.mp4" type="video/mp4">
-  </video>
-  <button class="menuBtn" id="openMenu" aria-label="Открыть меню">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M4 6h16M4 12h16M4 18h16"/>
-    </svg>
-  </button>
-</section>
-
-<main class="wrap">
-  <div class="h1">ALLIGATORRB</div>
-  <div class="lead">магазинчик бла бла бла — покупайте больше цифровых товаров</div>
-
-  <!-- WORK -->
-  <a class="workBanner" href="#" aria-label="Работа">
-    <video class="workVideo" id="workVideo" autoplay loop muted playsinline preload="metadata" poster="work.jpg" disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback">
-      <source src="work.mp4" type="video/mp4">
+  <!-- HERO -->
+  <section class="hero">
+    <video class="heroVideo" id="heroVideo" autoplay loop muted playsinline preload="metadata" poster="hero.jpg" disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback">
+      <source src="hero.mp4" type="video/mp4">
     </video>
-    <div class="workTitle">РАБОТА</div>
-  </a>
-
-  <!-- BUTTONS -->
-  <section class="grid" aria-label="Кнопки">
-    <a class="metalBtn" href="#">КАНАЛ</a>
-    <a class="metalBtn" href="#">ЧАТ</a>
-    <a class="metalBtn" href="#">ВАКАНСИИ</a>
-    <a class="metalBtn" href="#">СОЗДАТЕЛЬ</a>
-    <a class="metalBtn" href="#">БОТ</a>
-    <a class="metalBtn" href="#">ПОМОЩНИК</a>
+    <button class="menuBtn" id="openMenu" aria-label="Открыть меню">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
   </section>
 
-  <footer class="foot">
-    Сделано — <a href="#">твоя ссылка</a>
-  </footer>
-</main>
+  <main class="wrap">
+    <div class="h1">ALLIGATORRB</div>
+    <div class="lead">магазинчик бла бла бла — покупайте больше цифровых товаров</div>
 
-<!-- MENU -->
-<div class="sheetWrap" id="sheet">
-  <div class="sheetShade" id="closeSheet"></div>
-  <aside class="sheet" role="dialog" aria-label="Меню">
-    <h2>Меню</h2>
-    <a href="#">Главная</a>
-    <a href="#">Работа</a>
-    <a href="#">Контакты</a>
-    <a href="#">Вакансии</a>
-  </aside>
-</div>
+    <!-- BUTTONS -->
+    <section class="grid" aria-label="Кнопки">
+      <a class="metalBtn" href="#">КАНАЛ</a>
+      <a class="metalBtn" href="#">ЧАТ</a>
+      <a class="metalBtn" href="#">ОТЗЫВЫ</a>
+      <a class="metalBtn" href="#">ОПЕРАТОР</a>
+      <a class="metalBtn" href="#">РАБОТА</a>
+      <a class="metalBtn" href="#">САЙТ</a>
+    </section>
 
-<script>
-  /* ===== MENU ===== */
-  const sheet = document.getElementById('sheet');
-  document.getElementById('openMenu').onclick = () => sheet.classList.add('active');
-  document.getElementById('closeSheet').onclick = () => sheet.classList.remove('active');
-  window.addEventListener('keydown', (e) => { if(e.key === 'Escape') sheet.classList.remove('active'); });
+    <!-- WORK BANNER -->
+    <a class="workBanner" href="#" aria-label="Работа">
+      <div class="workTitle">РАБОТА</div>
+    </a>
 
-  /* ===== VIDEO AUTOPLAY HARDENING (iOS/Android/PC) ===== */
-  const vids = [
-    document.getElementById('heroVideo'),
-    document.getElementById('workVideo')
-  ].filter(Boolean);
+    <footer class="foot">
+      Сделано — <a href="#">твоя ссылка</a>
+    </footer>
+  </main>
 
-  function tryPlay(v){
-    if(!v) return;
-    v.muted = true;
-    v.playsInline = true;
+  <!-- MENU -->
+  <div class="sheetWrap" id="sheet">
+    <div class="sheetShade" id="closeSheet"></div>
+    <aside class="sheet" role="dialog" aria-label="Меню">
+      <h2>Меню</h2>
+      <a href="#">Главная</a>
+      <a href="#">Работа</a>
+      <a href="#">Контакты</a>
+      <a href="#">Вакансии</a>
+    </aside>
+  </div>
 
-    const p = v.play();
-    if(p && typeof p.catch === 'function'){
-      p.catch(()=>{ /* если браузер запретил — попробуем позже */ });
-    }
-  }
-
-  function kickAll(){
-    vids.forEach(v => tryPlay(v));
-  }
-
-  kickAll();
-
-  window.addEventListener('load', kickAll);
-  ['touchstart','pointerdown','click','scroll'].forEach(evt=>{
-    window.addEventListener(evt, kickAll, { once:true, passive:true });
-  });
-
-  document.addEventListener('visibilitychange', ()=>{
-    if(!document.hidden) kickAll();
-  });
-
-  vids.forEach(v=>{
-    v.addEventListener('pause', ()=>{
-      if(!document.hidden) tryPlay(v);
-    });
-  });
-</script>
-
+  <script>
+    /* ===== MENU ===== */
+    const sheet = document.getElementById('sheet');
+    document.getElementById('openMenu').onclick = () => sheet.classList.add('active');
+    document.getElementById('closeSheet').onclick = () => sheet.classList.remove('active');
+    window.addEventListener('keydown', (e) => { if(e.key === 'Escape') sheet.classList.remove('active'); });
+  </script>
 </body>
 </html>
