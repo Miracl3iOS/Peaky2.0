@@ -2,19 +2,19 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Plushy — бело-розовый уютный сайт</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>PEAKYCATS</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --accent: #f7689c;
-      --ink: #2a2a2a; 
-      --bg1: #f4f6f9;
-      --bg2: #e4e4e4;
-      --btn-bg: linear-gradient(45deg, #d3d9e1, #b0b7c1);
-      --btn-hover: #a2a9b1;
-      --btn-text: #1c1c1c;
-      --shadow: rgba(209, 215, 226, 0.2);
+      --ink: #2A2A2A;
+      --ink2: #A1A1A1;
+      --bg1: #FFFFFF;
+      --bg2: #F0F0F0;
+      --button-bg: linear-gradient(45deg, #D3D9E1, #B0B7C1);
+      --button-shadow: rgba(209, 215, 226, 0.2);
+      --gold-gradient: linear-gradient(45deg, #FFD700, #FFEC8B);
     }
 
     * {
@@ -22,17 +22,17 @@
       margin: 0;
       padding: 0;
     }
-    html, body {
-      font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      background: var(--bg1);
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    
+
+    /* Оболочка */
     .shell {
-      width: 100%;
-      max-width: 430px;
+      width: min(100vw, 430px);
       min-height: 100vh;
       background: #fff;
       border-radius: 26px;
@@ -43,136 +43,144 @@
       border: 1px solid #fff;
     }
 
-    /* Banner with gif */
-    .banner {
+    .content {
       position: relative;
-      height: 300px;
-      background-color: #f0f0f0;
+      z-index: 1;
+      padding-bottom: 40px;
+    }
+
+    /* Фон */
+    .hero {
+      background: url('path/to/your-gif.gif') center/cover no-repeat;
+      background-size: contain;
+      height: 40vh;
+      position: relative;
+      text-align: center;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-image: url('/mnt/data/EC8F600B-1EF3-45EF-B3B7-1249F19CC52D.jpeg'); /* Place your gif URL here */
-      background-size: cover;
-      background-position: center;
-      border-radius: 16px;
     }
 
-    .banner-text {
-      position: absolute;
-      top: 20px;
+    .hero h1 {
+      font-size: 36px;
       font-weight: 900;
-      font-size: 2rem;
-      color: #fff;
-      text-shadow: 0 0 10px rgba(255, 255, 255, .5);
+      color: white;
+      text-shadow: 0 0 10px rgba(255, 255, 255, .7);
     }
 
-    .work-button {
-      position: absolute;
-      bottom: 20px;
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      padding: 10px 20px;
-      border-radius: 15px;
-      box-shadow: 0px 4px 6px var(--shadow);
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .work-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0px 6px 10px var(--shadow);
-    }
-
-    /* Main text below the banner */
-    .main-text {
-      text-align: center;
-      font-weight: 900;
-      font-size: 2.5rem;
-      margin-top: 20px;
+    /* Текст PEAKYCATS */
+    .title {
+      font-size: 3rem;
+      font-weight: 800;
       color: var(--ink);
-      text-shadow: 0 0 10px rgba(255, 255, 255, .5);
+      margin-top: 20px;
     }
 
-    .sub-text {
+    /* Описание */
+    .description {
+      font-size: 1.2rem;
+      color: var(--ink2);
       text-align: center;
-      font-size: 1rem;
-      color: #a1a1a1;
-      margin-top: 10px;
+      margin: 10px 0;
     }
 
-    /* Buttons in gold gradient */
+    /* Баннер с кнопкой "Работа" */
+    .banner {
+      background: url('path/to/your-image.jpg') center/cover no-repeat;
+      height: 20vh;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 900;
+      position: relative;
+    }
+
+    .banner-button {
+      background: var(--gold-gradient);
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .banner-button:hover {
+      background: linear-gradient(45deg, #FFD700, #FFEC8B);
+    }
+
+    /* Кнопки */
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-top: 30px;
-      padding: 0 18px;
+      margin-top: 20px;
     }
 
     .btn {
-      padding: 12px;
-      font-weight: 900;
-      font-size: 14px;
-      color: #fff;
-      background: linear-gradient(180deg, #ffd700 0%, #ffcc00 100%);
-      box-shadow: 0 8px 18px rgba(247, 104, 156, .3), 8px 8px 20px rgba(247, 104, 156, .2), -8px -8px 20px #fff;
-      border-radius: 16px;
+      background: var(--button-bg);
+      padding: 15px;
+      font-size: 1rem;
       text-align: center;
+      border-radius: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      box-shadow: 0 4px 8px var(--button-shadow);
       cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      box-shadow: 0 6px 12px var(--button-shadow);
+      background: linear-gradient(45deg, #D1D7E2, #A2A9B1);
     }
 
     .btn:active {
       transform: translateY(1px);
-      box-shadow: inset 6px 6px 16px rgba(247, 104, 156, .3), inset -6px -6px 16px #fff;
     }
 
-    .btn:focus-visible {
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, .8), 0 8px 18px rgba(247, 104, 156, .4);
-    }
-
-    footer {
+    .footer {
       text-align: center;
-      font-size: 13px;
-      color: #a1a1a1;
+      margin-top: 30px;
       padding: 20px;
+      font-size: 0.9rem;
+      color: var(--ink2);
     }
-
-    footer a {
-      color: #a1a1a1;
-      font-weight: 900;
-      text-decoration: none;
-      border-bottom: 1px dashed rgba(154, 74, 105, .6);
-    }
-
-    footer a:hover {
-      border-bottom-style: solid;
-    }
-
   </style>
 </head>
 <body>
   <main class="shell">
-    <div class="banner">
-      <div class="banner-text">РАБОТА</div>
-      <button class="work-button">Купить</button>
+    <div class="hero">
+      <h1>РАБОТА</h1>
+    </div>
+    <div class="content">
+      <div class="title">PEAKYCATS</div>
+      <p class="description">Магазинчик бла-бла-бла — покупайте больше цифровых товаров</p>
+
+      <!-- Баннер с кнопкой "Работа" -->
+      <div class="banner">
+        <button class="banner-button">Работа</button>
+      </div>
+
+      <!-- Кнопки -->
+      <div class="grid">
+        <button class="btn">Канал</button>
+        <button class="btn">Чат</button>
+        <button class="btn">Вакансии</button>
+        <button class="btn">Создатель</button>
+        <button class="btn">Бот</button>
+        <button class="btn">Помощник</button>
+      </div>
     </div>
 
-    <div class="main-text">PEAKYCATS</div>
-    <div class="sub-text">Магазинчик бла бла бла — покупайте больше цифровых товаров</div>
-
-    <div class="grid">
-      <button class="btn">Канал</button>
-      <button class="btn">Чат</button>
-      <button class="btn">Вакансии</button>
-      <button class="btn">Создатель</button>
-      <button class="btn">Бот</button>
-      <button class="btn">Помощник</button>
-    </div>
-
-    <footer>
-      Сделано с 🩷 <a href="https://t.me/663studio" target="_blank" rel="noopener">663studio</a>
+    <footer class="footer">
+      Сделано с 🩷 <a href="https://t.me/663studio">663studio</a>
     </footer>
   </main>
 </body>
