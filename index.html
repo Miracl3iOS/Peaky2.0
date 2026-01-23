@@ -1,22 +1,20 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>ALLIGATORRB</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Plushy — бело-розовый уютный сайт</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
-
   <style>
     :root {
-      --bg: #2D2A28; /* Темный основной фон */
-      --text: #FFFFFF; /* Белый цвет текста */
-      --secondary-text: #B0B0B0; /* Светло-серый для второстепенного текста */
-      --button-bg: #FFD700; /* Золотой цвет кнопок */
-      --button-hover-bg: #FF9900; /* Оранжевый при наведении на кнопки */
-      --highlight: linear-gradient(145deg, #d6af00, #f0c700); /* Переливающийся градиент для кнопок */
-      --heading: #EAEAEA; /* Светлый серый для заголовков */
-      --menu-bg: #4F4A47; /* Темно-серый фон для меню */
-      --shadow: 6px 6px 15px rgba(0, 0, 0, 0.2), -6px -6px 15px rgba(255, 255, 255, 0.3); /* Мягкие тени */
+      --accent: #f7689c;
+      --ink: #2a2a2a; 
+      --bg1: #f4f6f9;
+      --bg2: #e4e4e4;
+      --btn-bg: linear-gradient(45deg, #d3d9e1, #b0b7c1);
+      --btn-hover: #a2a9b1;
+      --btn-text: #1c1c1c;
+      --shadow: rgba(209, 215, 226, 0.2);
     }
 
     * {
@@ -24,348 +22,158 @@
       margin: 0;
       padding: 0;
     }
-
     html, body {
-      height: 100%;
-    }
-
-    body {
-      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      background: var(--bg);
-      color: var(--text);
+      font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: var(--bg1);
+      color: var(--ink);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-      position: relative;
     }
-
-    a, button {
-      font: inherit;
-      color: inherit;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    button {
-      border: 0;
-      background: none;
-      cursor: pointer;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    /* ---------- SNOW EFFECT ---------- */
-    @keyframes snow {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(100vh); }
-    }
-
-    .snowflake {
-      position: absolute;
-      top: -10px;
-      z-index: 9999;
-      pointer-events: none;
-      animation: snow 10s linear infinite;
-      opacity: 0.6;
-      font-size: 16px;
-      color: white;
-    }
-
-    .snowflake:nth-child(odd) {
-      left: 20%;
-      animation-duration: 12s;
-    }
-
-    .snowflake:nth-child(even) {
-      left: 60%;
-      animation-duration: 8s;
-    }
-
-    /* ---------- HERO ---------- */
-    .hero {
-      position: relative;
+    
+    .shell {
       width: 100%;
-      height: min(56vh, 520px);
-      min-height: 320px;
+      max-width: 430px;
+      min-height: 100vh;
+      background: #fff;
+      border-radius: 26px;
+      box-shadow: 8px 8px 20px rgba(247, 104, 156, .2), -8px -8px 20px #fff;
+      margin: auto;
+      position: relative;
       overflow: hidden;
-      background: var(--bg);
-      box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.1), -6px -6px 15px rgba(255, 255, 255, 0.2);
+      border: 1px solid #fff;
     }
 
-    .heroVideo {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      pointer-events: none;
-    }
-
-    /* ---------- MENU BUTTON ---------- */
-    .menuBtn {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: rgba(26, 20, 17, 0.6);
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow);
-      z-index: 5;
-    }
-
-    .menuBtn svg {
-      width: 22px;
-      height: 22px;
-      color: var(--highlight);
-    }
-
-    .menuBtn:active {
-      transform: scale(0.96);
-    }
-
-    /* ---------- CONTENT ---------- */
-    .wrap {
-      width: min(430px, 100%);
-      margin: 0 auto;
-      padding: 18px 16px 28px;
-    }
-
-    .h1 {
-      text-align: center;
-      font-size: clamp(30px, 7vw, 44px);
-      font-weight: 900;
-      letter-spacing: 1.2px;
-      color: transparent;
-      background: var(--highlight);
-      background-size: 220% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      animation: goldFlow 10s linear infinite;
-    }
-
-    @keyframes goldFlow {
-      to {
-        background-position: 220% 50%;
-      }
-    }
-
-    .lead {
-      margin-top: 10px;
-      text-align: center;
-      color: var(--secondary-text);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    /* ---------- BUTTONS ---------- */
-    .metalBtn {
+    /* Banner with gif */
+    .banner {
       position: relative;
-      height: 50px;
-      border-radius: 18px;
+      height: 300px;
+      background-color: #f0f0f0;
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: var(--text);
-      background: var(--button-bg);
-      box-shadow: var(--shadow);
-      transition: all 0.3s ease;
-      text-transform: uppercase;
+      align-items: center;
+      background-image: url('/mnt/data/EC8F600B-1EF3-45EF-B3B7-1249F19CC52D.jpeg'); /* Place your gif URL here */
+      background-size: cover;
+      background-position: center;
+      border-radius: 16px;
     }
 
-    .metalBtn:hover {
-      background: var(--button-hover-bg);
-      box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.2), -6px -6px 15px rgba(255, 255, 255, 0.5);
+    .banner-text {
+      position: absolute;
+      top: 20px;
+      font-weight: 900;
+      font-size: 2rem;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, .5);
     }
 
-    .metalBtn:active {
-      transform: translateY(2px);
-      filter: brightness(0.95);
+    .work-button {
+      position: absolute;
+      bottom: 20px;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      padding: 10px 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 6px var(--shadow);
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* ---------- GRID LAYOUT ---------- */
+    .work-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0px 6px 10px var(--shadow);
+    }
+
+    /* Main text below the banner */
+    .main-text {
+      text-align: center;
+      font-weight: 900;
+      font-size: 2.5rem;
+      margin-top: 20px;
+      color: var(--ink);
+      text-shadow: 0 0 10px rgba(255, 255, 255, .5);
+    }
+
+    .sub-text {
+      text-align: center;
+      font-size: 1rem;
+      color: #a1a1a1;
+      margin-top: 10px;
+    }
+
+    /* Buttons in gold gradient */
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-top: 18px;
+      margin-top: 30px;
+      padding: 0 18px;
     }
 
-    .grid a {
-      text-align: center;
-    }
-
-    /* ---------- WORK BANNER ---------- */
-    .workBanner {
-      position: relative;
-      margin-top: 18px;
-      height: 120px;
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      background: var(--bg);
-    }
-
-    .workTitle {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      font-size: 26px;
+    .btn {
+      padding: 12px;
       font-weight: 900;
-      letter-spacing: 1px;
-      color: transparent;
-      background: var(--highlight);
-      background-size: 220% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      animation: goldFlow 10s linear infinite;
-      text-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
-    }
-
-    /* ---------- MENU SHEET ---------- */
-    .sheetWrap {
-      position: fixed;
-      inset: 0;
-      display: none;
-      z-index: 1000;
-    }
-
-    .sheetWrap.active {
-      display: block;
-    }
-
-    .sheetShade {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-    }
-
-    .sheet {
-      position: absolute;
-      right: 0;
-      top: 0;
-      height: 100%;
-      width: min(86vw, 340px);
-      background: rgba(18, 14, 12, 0.95);
-      padding: 18px;
-      transform: translateX(100%);
-      transition: transform 0.22s ease-out;
-    }
-
-    .sheetWrap.active .sheet {
-      transform: none;
-    }
-
-    .sheet h2 {
-      color: var(--heading);
-      font-weight: 900;
-      margin: 8px 0 14px;
-    }
-
-    .sheet a {
-      display: block;
-      padding: 14px;
+      font-size: 14px;
+      color: #fff;
+      background: linear-gradient(180deg, #ffd700 0%, #ffcc00 100%);
+      box-shadow: 0 8px 18px rgba(247, 104, 156, .3), 8px 8px 20px rgba(247, 104, 156, .2), -8px -8px 20px #fff;
       border-radius: 16px;
-      background: rgba(255, 255, 255, 0.04);
-      margin-bottom: 12px;
-      box-shadow: var(--shadow);
-    }
-
-    /* FOOTER */
-    .foot {
-      margin-top: 18px;
       text-align: center;
-      font-size: 12px;
-      color: var(--secondary-text);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .foot a {
-      color: var(--text);
+    .btn:active {
+      transform: translateY(1px);
+      box-shadow: inset 6px 6px 16px rgba(247, 104, 156, .3), inset -6px -6px 16px #fff;
+    }
+
+    .btn:focus-visible {
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, .8), 0 8px 18px rgba(247, 104, 156, .4);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #a1a1a1;
+      padding: 20px;
+    }
+
+    footer a {
+      color: #a1a1a1;
       font-weight: 900;
       text-decoration: none;
-      border-bottom: 1px dashed rgba(201, 162, 77, 0.55);
+      border-bottom: 1px dashed rgba(154, 74, 105, .6);
     }
 
-    @media (hover:hover) {
-      .metalBtn:hover {
-        filter: brightness(0.98);
-      }
-
-      .workBanner:hover {
-        transform: translateY(-1px);
-      }
+    footer a:hover {
+      border-bottom-style: solid;
     }
+
   </style>
 </head>
-
 <body>
-  <!-- Snowflakes -->
-  <div class="snowflake" style="animation-delay: 0s;">❄</div>
-  <div class="snowflake" style="animation-delay: 2s;">❄</div>
-  <div class="snowflake" style="animation-delay: 4s;">❄</div>
-  <div class="snowflake" style="animation-delay: 6s;">❄</div>
+  <main class="shell">
+    <div class="banner">
+      <div class="banner-text">РАБОТА</div>
+      <button class="work-button">Купить</button>
+    </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <video class="heroVideo" id="heroVideo" autoplay loop muted playsinline preload="metadata" poster="hero.jpg" disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback">
-      <source src="hero.mp4" type="video/mp4">
-    </video>
-    <button class="menuBtn" id="openMenu" aria-label="Открыть меню">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-    </button>
-  </section>
+    <div class="main-text">PEAKYCATS</div>
+    <div class="sub-text">Магазинчик бла бла бла — покупайте больше цифровых товаров</div>
 
-  <main class="wrap">
-    <div class="h1">ALLIGATORRB</div>
-    <div class="lead">магазинчик бла бла бла — покупайте больше цифровых товаров</div>
+    <div class="grid">
+      <button class="btn">Канал</button>
+      <button class="btn">Чат</button>
+      <button class="btn">Вакансии</button>
+      <button class="btn">Создатель</button>
+      <button class="btn">Бот</button>
+      <button class="btn">Помощник</button>
+    </div>
 
-    <!-- BUTTONS -->
-    <section class="grid" aria-label="Кнопки">
-      <a class="metalBtn" href="#">КАНАЛ</a>
-      <a class="metalBtn" href="#">ЧАТ</a>
-      <a class="metalBtn" href="#">ОТЗЫВЫ</a>
-      <a class="metalBtn" href="#">ОПЕРАТОР</a>
-      <a class="metalBtn" href="#">РАБОТА</a>
-      <a class="metalBtn" href="#">САЙТ</a>
-    </section>
-
-    <!-- WORK BANNER -->
-    <a class="workBanner" href="#" aria-label="Работа">
-      <div class="workTitle">РАБОТА</div>
-    </a>
-
-    <footer class="foot">
-      Сделано — <a href="#">твоя ссылка</a>
+    <footer>
+      Сделано с 🩷 <a href="https://t.me/663studio" target="_blank" rel="noopener">663studio</a>
     </footer>
   </main>
-
-  <!-- MENU -->
-  <div class="sheetWrap" id="sheet">
-    <div class="sheetShade" id="closeSheet"></div>
-    <aside class="sheet" role="dialog" aria-label="Меню">
-      <h2>Меню</h2>
-      <a href="#">Главная</a>
-      <a href="#">Работа</a>
-      <a href="#">Контакты</a>
-      <a href="#">Вакансии</a>
-    </aside>
-  </div>
-
-  <script>
-    /* ===== MENU ===== */
-    const sheet = document.getElementById('sheet');
-    document.getElementById('openMenu').onclick = () => sheet.classList.add('active');
-    document.getElementById('closeSheet').onclick = () => sheet.classList.remove('active');
-    window.addEventListener('keydown', (e) => { if(e.key === 'Escape') sheet.classList.remove('active'); });
-  </script>
 </body>
 </html>
