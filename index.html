@@ -8,26 +8,23 @@
 
 <style>
 :root{
-  /* Фон */
+  /* Фон/текст */
   --bg:#F4F6F9;
   --bg2:#FFFFFF;
-
-  /* Текст */
   --text:#2A2A2A;
   --text2:#1C1C1C;
   --muted:#A1A1A1;
 
-  /* МЕНЬШЕ теней везде */
+  /* Тени — уменьшены */
   --shadow: 7px 7px 16px rgba(170,180,195,.30), -7px -7px 16px rgba(255,255,255,.88);
-  --shadowMenu: none; /* меню без тени */
 
-  /* “Платина/серебро” */
+  /* Платина/серебро */
   --plat1:#D3D9E1;
   --plat2:#B0B7C1;
   --plat3:#FFFFFF;
   --plat4:#A2A9B1;
 
-  /* высота hero */
+  /* Высоты */
   --heroH:min(40vh, 380px);
   --heroMin:240px;
 }
@@ -36,16 +33,40 @@
 html,body{height:100%}
 body{
   font-family:Poppins,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-  background:linear-gradient(180deg,var(--bg2),var(--bg));
   color:var(--text);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
+  background:linear-gradient(180deg,var(--bg2),var(--bg));
 }
 a,button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 button{border:0;background:none;cursor:pointer}
 a{text-decoration:none}
 
-/* ===== Loader (вернул) ===== */
+/* ===== Background video (hero.mp4 как бекграунд сайта) ===== */
+.bgVideo{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  z-index:-3;
+  pointer-events:none;
+}
+
+/* мягкая “вуаль” поверх фонового видео, чтобы всё читалось */
+.bgOverlay{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  background:
+    radial-gradient(1200px 650px at 25% 20%, rgba(255,255,255,.68), rgba(255,255,255,0) 60%),
+    radial-gradient(900px 520px at 75% 40%, rgba(255,255,255,.55), rgba(255,255,255,0) 65%),
+    linear-gradient(180deg, rgba(255,255,255,.45), rgba(244,246,249,.70));
+}
+
+/* ===== Loader ===== */
 .loader{
   position:fixed;
   inset:0;
@@ -74,20 +95,45 @@ a{text-decoration:none}
   min-height:100dvh;
 }
 
-/* ---------- HERO VIDEO (углы НЕ закруглять) ---------- */
+/* ---------- HERO (пустое поле, без картинки) ---------- */
 .hero{
   position:relative;
   width:100%;
   height:var(--heroH);
   min-height:var(--heroMin);
   overflow:hidden;
-  background:linear-gradient(145deg,var(--bg2),var(--bg));
-  border-radius:0;               /* ВАЖНО: без скруглений */
+  border-radius:0; /* верхний блок без скруглений */
+  background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(244,246,249,.75));
   box-shadow:var(--shadow);
 }
 
-/* видео */
-.heroVideo{
+/* лёгкая дымка внутри hero */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 360px at 30% 18%, rgba(255,255,255,.65), rgba(255,255,255,0) 62%),
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.04));
+}
+
+/* banner.mp4 на месте бывшего hero (как плашка сверху) */
+.heroBanner{
+  position:absolute;
+  top:14px;
+  left:14px;
+  right:70px; /* оставляем место под меню справа */
+  height:46px;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  z-index:5;
+  background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(244,246,249,.75));
+}
+
+/* видео внутри баннера */
+.bannerVideo{
   position:absolute;
   inset:0;
   width:100%;
@@ -96,19 +142,15 @@ a{text-decoration:none}
   object-position:center;
   pointer-events:none;
 }
-
-/* мягкая дымка поверх */
-.hero::after{
+.heroBanner::before{
   content:"";
   position:absolute;
   inset:0;
-  background:
-    radial-gradient(900px 360px at 30% 18%, rgba(255,255,255,.62), rgba(255,255,255,0) 62%),
-    linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.05));
   pointer-events:none;
+  background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0));
 }
 
-/* MENU BUTTON: без тени вообще */
+/* MENU BUTTON: прозрачная */
 .menuBtn{
   position:absolute;
   top:14px;
@@ -118,10 +160,10 @@ a{text-decoration:none}
   border-radius:14px;
   display:grid;
   place-items:center;
-  background:rgba(244,246,249,.72);
-  backdrop-filter:blur(12px);
-  box-shadow:var(--shadowMenu); /* none */
-  z-index:5;
+  background:transparent;     /* ПРОЗРАЧНО */
+  box-shadow:none;            /* без тени */
+  z-index:6;
+  backdrop-filter:blur(10px); /* лёгкий blur, можно убрать если не надо */
   transition:transform .14s ease, filter .14s ease;
   outline:none;
 }
@@ -129,51 +171,8 @@ a{text-decoration:none}
 .menuBtn:active{transform:scale(.96);filter:brightness(.98)}
 .menuBtn:focus-visible{outline:none}
 
-/* ===== ВАЖНО: убираем “невидимую кнопку” =====
-   heroBanner изначально скрыт и НЕ кликабелен,
-   включится только когда картинка реально загрузилась. */
-.heroBanner{
-  position:absolute;
-  top:14px;
-  right:70px;
-  height:46px;
-  width:min(56%,230px);
-  border-radius:16px;
-  overflow:hidden;
-
-  /* скрыто до onload */
-  display:none;
-  pointer-events:none;
-  opacity:0;
-
-  z-index:5;
-  box-shadow:var(--shadow);
-}
-.heroBanner.ready{
-  display:block;
-  pointer-events:auto;
-  opacity:1;
-}
-.heroBannerImg{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-.heroBanner::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0));
-  pointer-events:none;
-}
-.heroBanner:focus,
-.heroBanner:focus-visible{outline:none}
-
 /* ---------- CONTENT ---------- */
-.wrap{
-  padding:18px 16px 28px;
-}
+.wrap{ padding:18px 16px 28px; }
 
 /* Заголовок */
 .h1{
@@ -182,13 +181,7 @@ a{text-decoration:none}
   font-weight:900;
   letter-spacing:1.2px;
   color:transparent;
-  background:linear-gradient(90deg,
-    #1c1c1c,
-    #7f8a99,
-    #1c1c1c,
-    #b7c0cc,
-    #1c1c1c
-  );
+  background:linear-gradient(90deg,#1c1c1c,#7f8a99,#1c1c1c,#b7c0cc,#1c1c1c);
   background-size:220% auto;
   -webkit-background-clip:text;
   background-clip:text;
@@ -213,7 +206,7 @@ a{text-decoration:none}
   border-radius:22px;
   overflow:hidden;
   box-shadow:var(--shadow);
-  background:linear-gradient(145deg,var(--bg2),var(--bg));
+  background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(244,246,249,.75));
   display:block;
 }
 .workVideo{
@@ -243,13 +236,7 @@ a{text-decoration:none}
   font-weight:900;
   letter-spacing:1px;
   color:transparent;
-  background:linear-gradient(90deg,
-    var(--plat3),
-    #cfd6df,
-    var(--plat3),
-    #aeb7c3,
-    var(--plat3)
-  );
+  background:linear-gradient(90deg,var(--plat3),#cfd6df,var(--plat3),#aeb7c3,var(--plat3));
   background-size:220% auto;
   -webkit-background-clip:text;
   background-clip:text;
@@ -264,7 +251,6 @@ a{text-decoration:none}
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
-
 .metalBtn{
   position:relative;
   height:58px;
@@ -275,19 +261,9 @@ a{text-decoration:none}
   font-weight:900;
   letter-spacing:.6px;
   color:var(--text2);
-
   background:
     linear-gradient(180deg, rgba(255,255,255,.60), rgba(255,255,255,0) 38%),
-    linear-gradient(120deg,
-      #aeb7c3,
-      var(--plat1),
-      #e8edf5,
-      var(--plat3),
-      var(--plat2),
-      #e8edf5,
-      #aeb7c3
-    );
-
+    linear-gradient(120deg,#aeb7c3,var(--plat1),#e8edf5,var(--plat3),var(--plat2),#e8edf5,#aeb7c3);
   box-shadow:var(--shadow);
   overflow:hidden;
   user-select:none;
@@ -297,11 +273,7 @@ a{text-decoration:none}
   content:"";
   position:absolute;
   inset:-60%;
-  background:linear-gradient(115deg,
-    transparent 40%,
-    rgba(255,255,255,.55) 50%,
-    transparent 60%
-  );
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);
   transform:translateX(-50%) rotate(12deg);
   animation:shimmer 3s linear infinite;
   mix-blend-mode:screen;
@@ -314,23 +286,15 @@ a{text-decoration:none}
 }
 
 /* ---------- MENU SHEET ---------- */
-.sheetWrap{
-  position:fixed;
-  inset:0;
-  display:none;
-  z-index:1000;
-}
+.sheetWrap{ position:fixed; inset:0; display:none; z-index:1000; }
 .sheetWrap.active{display:block}
 .sheetShade{
-  position:absolute;
-  inset:0;
+  position:absolute; inset:0;
   background:rgba(0,0,0,.32);
   backdrop-filter:blur(6px);
 }
 .sheet{
-  position:absolute;
-  right:0;
-  top:0;
+  position:absolute; right:0; top:0;
   height:100%;
   width:min(86vw,340px);
   background:rgba(244,246,249,.92);
@@ -342,16 +306,12 @@ a{text-decoration:none}
   border-bottom-left-radius:22px;
 }
 .sheetWrap.active .sheet{transform:none}
-.sheet h2{
-  color:var(--text2);
-  font-weight:900;
-  margin:8px 0 14px;
-}
+.sheet h2{ color:var(--text2); font-weight:900; margin:8px 0 14px; }
 .sheet a{
   display:block;
   padding:14px;
   border-radius:16px;
-  background:linear-gradient(145deg,var(--bg2),var(--bg));
+  background:linear-gradient(145deg, rgba(255,255,255,.65), rgba(244,246,249,.85));
   margin-bottom:12px;
   box-shadow:var(--shadow);
   color:var(--text2);
@@ -373,7 +333,6 @@ a{text-decoration:none}
   border-bottom:1px dashed rgba(180,188,202,.95);
 }
 
-/* hover */
 @media (hover:hover){
   .metalBtn:hover{filter:brightness(.995)}
   .workBanner:hover{transform:translateY(-1px)}
@@ -383,6 +342,23 @@ a{text-decoration:none}
 
 <body>
 
+<!-- Background video -->
+<video
+  class="bgVideo"
+  id="bgVideo"
+  autoplay
+  loop
+  muted
+  playsinline
+  preload="metadata"
+  poster="hero.jpg"
+  disablepictureinpicture
+  controlslist="nodownload noplaybackrate noremoteplayback"
+>
+  <source src="hero.mp4" type="video/mp4">
+</video>
+<div class="bgOverlay" aria-hidden="true"></div>
+
 <!-- Loader -->
 <div class="loader" id="loader" aria-live="polite">
   <div class="spinner"></div>
@@ -391,27 +367,24 @@ a{text-decoration:none}
 
 <div class="page">
 
-  <!-- HERO -->
+  <!-- HERO (пустой блок) + banner.mp4 плашка -->
   <section class="hero">
-    <video
-      class="heroVideo"
-      id="heroVideo"
-      autoplay
-      loop
-      muted
-      playsinline
-      preload="metadata"
-      poster="hero.jpg"
-      disablepictureinpicture
-      controlslist="nodownload noplaybackrate noremoteplayback"
-    >
-      <source src="hero.mp4" type="video/mp4">
-    </video>
-
-    <!-- баннер (опционально). СКРЫТ пока не загрузится картинка -->
-    <a class="heroBanner" href="#" id="heroBanner" aria-label="Баннер">
-      <img class="heroBannerImg" id="heroBannerImg" alt="">
-    </a>
+    <div class="heroBanner" aria-label="Баннер">
+      <video
+        class="bannerVideo"
+        id="bannerVideo"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="metadata"
+        poster="banner.jpg"
+        disablepictureinpicture
+        controlslist="nodownload noplaybackrate noremoteplayback"
+      >
+        <source src="banner.mp4" type="video/mp4">
+      </video>
+    </div>
 
     <button class="menuBtn" id="openMenu" aria-label="Открыть меню">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -473,73 +446,20 @@ a{text-decoration:none}
 </div>
 
 <script>
-/* ===== Loader control =====
-   Ждём минимум 600ms + старт видео/картинки баннера (если есть) */
-const loader = document.getElementById('loader');
-const MIN_LOAD_MS = 600;
-const t0 = Date.now();
-
-let bannerSettled = false;
-function hideLoaderWhenReady(){
-  const left = Math.max(0, MIN_LOAD_MS - (Date.now() - t0));
-  setTimeout(() => loader.classList.add('hidden'), left);
-}
-
-window.addEventListener('load', () => {
-  // если баннера нет/он уже решил что делать — прячем
-  if (bannerSettled) hideLoaderWhenReady();
-});
-
 /* ===== MENU ===== */
 const sheet = document.getElementById('sheet');
 document.getElementById('openMenu').onclick = () => sheet.classList.add('active');
 document.getElementById('closeSheet').onclick = () => sheet.classList.remove('active');
 window.addEventListener('keydown', (e) => { if(e.key === 'Escape') sheet.classList.remove('active'); });
 
-/* ===== Banner (без fetch, чтобы не было “мигания”) ===== */
-(function(){
-  const wrap = document.getElementById('heroBanner');
-  const img  = document.getElementById('heroBannerImg');
-  const list = ['banner.webp','banner.png','banner.gif','Banner.webp','Banner.png','Banner.gif'];
+/* ===== VIDEO AUTOPLAY HARDENING + Loader ===== */
+const loader = document.getElementById('loader');
+const MIN_LOAD_MS = 600;
+const t0 = Date.now();
 
-  // по умолчанию скрыто и не кликабельно
-  wrap.classList.remove('ready');
-  wrap.style.display = 'none';
-  wrap.style.pointerEvents = 'none';
-  wrap.style.opacity = '0';
-
-  let i = 0;
-  function done(){
-    bannerSettled = true;
-    // после load страницы прячем лоадер
-    if (document.readyState === 'complete') hideLoaderWhenReady();
-  }
-  function tryNext(){
-    if(i >= list.length){
-      // баннера нет — всё равно “settled”
-      wrap.style.display = 'none';
-      done();
-      return;
-    }
-    img.src = list[i++] + '?v=' + Date.now();
-  }
-
-  img.onload = () => {
-    // показываем только когда реально загрузился
-    wrap.style.display = 'block';
-    wrap.classList.add('ready');
-    wrap.style.pointerEvents = 'auto';
-    wrap.style.opacity = '1';
-    done();
-  };
-  img.onerror = () => tryNext();
-
-  tryNext();
-})();
-
-/* ===== VIDEO AUTOPLAY HARDENING (iOS/Android/PC) ===== */
 const vids = [
-  document.getElementById('heroVideo'),
+  document.getElementById('bgVideo'),
+  document.getElementById('bannerVideo'),
   document.getElementById('workVideo')
 ].filter(Boolean);
 
@@ -552,9 +472,31 @@ function tryPlay(v){
 }
 function kickAll(){ vids.forEach(tryPlay); }
 
-// стартуем
+let canCount = 0;
+const need = Math.min(2, vids.length); // достаточно чтобы фон и ещё одно видео ожили
+
+function settleLoader(){
+  const left = Math.max(0, MIN_LOAD_MS - (Date.now() - t0));
+  setTimeout(() => loader.classList.add('hidden'), left);
+}
+
+vids.forEach(v=>{
+  const onOk = () => {
+    canCount++;
+    if (canCount >= need) settleLoader();
+  };
+  v.addEventListener('canplay', onOk, { once:true });
+  v.addEventListener('loadeddata', onOk, { once:true });
+});
+
+/* если вдруг события не придут — всё равно прячем после load */
+window.addEventListener('load', ()=>{
+  kickAll();
+  setTimeout(()=>settleLoader(), 900);
+});
+
+/* дополнительные “пинки” */
 kickAll();
-window.addEventListener('load', kickAll);
 ['touchstart','pointerdown','click','scroll'].forEach(evt=>{
   window.addEventListener(evt, kickAll, { once:true, passive:true });
 });
@@ -565,11 +507,6 @@ vids.forEach(v=>{
   v.addEventListener('pause', ()=>{
     if(!document.hidden) tryPlay(v);
   });
-});
-
-// если баннер уже решён, но load ещё не произошёл — на всякий случай прячем лоадер после load
-window.addEventListener('load', ()=>{
-  if (bannerSettled) hideLoaderWhenReady();
 });
 </script>
 
