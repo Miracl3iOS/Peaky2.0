@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>PeakyCats</title>
+<title>PROSTIK Ufa</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
 
 <style>
@@ -12,7 +12,7 @@
   --text2:#1C1C1C;
   --muted:#8E96A3;
 
-  /* ЯРКИЙ платиново-серебряный фон (без прозрачности) */
+  /* ЯРКИЙ платиново-серебряный фон */
   --bgA:#FFFFFF;
   --bgB:#F2F4F8;
   --bgC:#E3E8F1;
@@ -24,11 +24,8 @@
   --plat3:#FFFFFF;
 
   /* мягкие небольшие тени */
-  --shadow: 6px 6px 14px rgba(160,170,185,.22), -6px -6px 14px rgba(255,255,255,.92);
-
-  /* hero */
-  --heroH:min(24vh, 240px);
-  --heroMin:180px;
+  --shadow: 6px 6px 14px rgba(160,170,185,.22),
+            -6px -6px 14px rgba(255,255,255,.92);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -39,7 +36,6 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 
-  /* насыщенный градиент */
   background:linear-gradient(135deg,
     var(--bgA) 0%,
     var(--bgB) 28%,
@@ -47,84 +43,45 @@ body{
     var(--bgD) 100%
   );
 }
+
 a,button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 button{border:0;background:none;cursor:pointer}
 a{text-decoration:none}
 
-/* ===== Loader ===== */
-.loader{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  background:linear-gradient(135deg,
-    var(--bgA) 0%,
-    var(--bgB) 28%,
-    var(--bgC) 62%,
-    var(--bgD) 100%
-  );
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  transition:opacity .35s ease, visibility .35s ease;
-}
-.loader.hidden{opacity:0; visibility:hidden;}
-.spinner{
-  width:18px;height:18px;border-radius:999px;
-  border:2px solid rgba(160,170,185,.35);
-  border-top-color:rgba(70,80,95,.65);
-  animation:spin .8s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loaderText{font-weight:900;color:var(--text);opacity:.85}
-
-/* контейнер */
-.page{
-  width:min(430px,100%);
-  margin:0 auto;
-  min-height:100dvh;
-}
-
-/* ---------- HERO ---------- */
+/* ---------- HERO VIDEO (СКРУГЛИЛ УГЛЫ) ---------- */
 .hero{
   position:relative;
-  width:100%;
-  height:var(--heroH);
-  min-height:var(--heroMin);
+  width:min(430px,100%);
+  margin:12px auto 0;
+  height:min(56vh,520px);
+  min-height:320px;
   overflow:hidden;
-  border-radius:0;
-  box-shadow:var(--shadow);
-  background:linear-gradient(180deg, var(--bgA) 0%, var(--bgB) 55%, var(--bgC) 100%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+
+  border-radius:22px;          /* <-- скругление */
+  box-shadow:var(--shadow);     /* <-- как в Peaky */
+  background:#000;              /* если постер не подгрузился */
 }
 
-/* надпись + лого СЛЕВА СВЕРХУ — НЕ кнопка */
-.brand{
+.heroVideo{
   position:absolute;
-  top:14px;
-  left:14px;
-  z-index:6;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.brandLogo{
-  width:26px;height:26px;
+  inset:0;
+  width:100%;
+  height:100%;
   object-fit:cover;
-  border-radius:8px;
-  display:block;
-}
-.brandName{
-  font-weight:900;
-  letter-spacing:1px;
-  font-size:14px;
-  color:var(--text2);
-  line-height:1;
+  object-position:center;
+  pointer-events:none;
 }
 
-/* меню справа сверху — без обводок/теней/фона */
+/* мягкая вуаль, но не “черная” как раньше */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.18));
+  pointer-events:none;
+}
+
+/* MENU BUTTON — прозрачная, без обводок/теней/фона */
 .menuBtn{
   position:absolute;
   top:14px;
@@ -136,46 +93,33 @@ a{text-decoration:none}
   place-items:center;
   background:transparent;
   box-shadow:none;
-  z-index:6;
+  z-index:5;
   transition:transform .14s ease, filter .14s ease;
   outline:none;
 }
 .menuBtn svg{width:26px;height:26px;color:rgba(28,28,28,.92)}
 .menuBtn:active{transform:scale(.96);filter:brightness(.98)}
 
-/* КВАДРАТНЫЙ баннер видео 1:1 (где был hero.mp4) — без прозрачности */
-.heroSquare{
-  width:min(56vw, 220px);
-  aspect-ratio:1/1;
-  border-radius:22px;
-  overflow:hidden;
-  background:#000; /* без прозрачности */
-  box-shadow:var(--shadow);
-}
-.heroVideo{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  display:block;
-  pointer-events:none;
-}
-
 /* ---------- CONTENT ---------- */
-.wrap{ padding:18px 16px 28px; }
+.wrap{
+  width:min(430px,100%);
+  margin:0 auto;
+  padding:18px 16px 28px;
+}
 
-/* заголовок ниже */
 .h1{
   text-align:center;
   font-size:clamp(30px,7vw,44px);
   font-weight:900;
   letter-spacing:1.2px;
   color:transparent;
+
   background:linear-gradient(90deg,#1c1c1c,#7f8a99,#1c1c1c,#b7c0cc,#1c1c1c);
   background-size:220% auto;
   -webkit-background-clip:text;
   background-clip:text;
   animation:metalFlow 10s linear infinite;
+
   text-shadow:0 10px 22px rgba(0,0,0,.05);
 }
 @keyframes metalFlow{to{background-position:220% 50%}}
@@ -199,6 +143,7 @@ a{text-decoration:none}
   background:#000;
   display:block;
 }
+
 .workVideo{
   position:absolute;
   inset:0;
@@ -209,6 +154,33 @@ a{text-decoration:none}
   pointer-events:none;
 }
 
+.workBanner::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.22));
+  pointer-events:none;
+}
+
+.workTitle{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:1px;
+  color:transparent;
+
+  background:linear-gradient(90deg,#1c1c1c,#7f8a99,#1c1c1c,#b7c0cc,#1c1c1c);
+  background-size:220% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  animation:metalFlow 10s linear infinite;
+
+  text-shadow:0 12px 26px rgba(0,0,0,.18);
+}
+
 /* ---------- PLATINUM BUTTONS ---------- */
 .grid{
   margin-top:18px;
@@ -216,6 +188,7 @@ a{text-decoration:none}
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
+
 .metalBtn{
   position:relative;
   height:58px;
@@ -244,11 +217,16 @@ a{text-decoration:none}
   user-select:none;
   transition:transform .15s ease, filter .15s ease;
 }
+
 .metalBtn::after{
   content:"";
   position:absolute;
   inset:-60%;
-  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);
+  background:linear-gradient(115deg,
+    transparent 40%,
+    rgba(255,255,255,.55) 50%,
+    transparent 60%
+  );
   transform:translateX(-50%) rotate(12deg);
   animation:shimmer 3s linear infinite;
   mix-blend-mode:screen;
@@ -257,28 +235,48 @@ a{text-decoration:none}
 @keyframes shimmer{to{transform:translateX(50%) rotate(12deg)}}
 .metalBtn:active{ transform:translateY(1px) scale(.98); filter:brightness(.985); }
 
-/* ---------- MENU SHEET ---------- */
-.sheetWrap{ position:fixed; inset:0; display:none; z-index:1000; }
+/* ---------- MENU SHEET (платина) ---------- */
+.sheetWrap{
+  position:fixed;
+  inset:0;
+  display:none;
+  z-index:1000;
+}
 .sheetWrap.active{display:block}
+
 .sheetShade{
-  position:absolute; inset:0;
+  position:absolute;
+  inset:0;
   background:rgba(0,0,0,.32);
   backdrop-filter:blur(6px);
 }
+
 .sheet{
-  position:absolute; right:0; top:0;
+  position:absolute;
+  right:0;
+  top:0;
   height:100%;
   width:min(86vw,340px);
+
   background:linear-gradient(180deg, var(--bgA) 0%, var(--bgB) 55%, var(--bgC) 100%);
   padding:18px;
+
   transform:translateX(100%);
   transition:transform .22s ease-out;
+
   box-shadow:-18px 0 38px rgba(0,0,0,.18);
   border-top-left-radius:22px;
   border-bottom-left-radius:22px;
 }
+
 .sheetWrap.active .sheet{transform:none}
-.sheet h2{ color:var(--text2); font-weight:900; margin:8px 0 14px; }
+
+.sheet h2{
+  color:var(--text2);
+  font-weight:900;
+  margin:8px 0 14px;
+}
+
 .sheet a{
   display:block;
   padding:14px;
@@ -305,6 +303,7 @@ a{text-decoration:none}
   border-bottom:1px dashed rgba(160,170,185,.85);
 }
 
+/* лёгкий hover только на ПК */
 @media (hover:hover){
   .metalBtn:hover{filter:brightness(.995)}
   .workBanner:hover{transform:translateY(-1px)}
@@ -314,88 +313,67 @@ a{text-decoration:none}
 
 <body>
 
-<!-- Loader -->
-<div class="loader" id="loader" aria-live="polite">
-  <div class="spinner"></div>
-  <div class="loaderText">Загружаем…</div>
-</div>
+<!-- HERO -->
+<section class="hero">
+  <video
+    class="heroVideo"
+    id="heroVideo"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    poster="hero.jpg"
+    disablepictureinpicture
+    controlslist="nodownload noplaybackrate noremoteplayback"
+  >
+    <source src="hero.mp4" type="video/mp4">
+  </video>
 
-<div class="page">
+  <button class="menuBtn" id="openMenu" aria-label="Открыть меню">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+  </button>
+</section>
 
-  <!-- HERO: квадратное видео 1:1 -->
-  <section class="hero">
+<main class="wrap">
+  <div class="h1">PROSTIK UFA</div>
+  <div class="lead">Получить кайф здесь пиздец как Prosto</div>
 
-    <!-- PeakyCats слева сверху (без “кнопки”) -->
-    <div class="brand" aria-label="PeakyCats">
-      <img class="brandLogo" id="brandLogo" src="logo.jpg" alt="Logo">
-      <div class="brandName">PeakyCats</div>
-    </div>
+  <!-- WORK -->
+  <a class="workBanner" href="#" aria-label="Работа">
+    <video
+      class="workVideo"
+      id="workVideo"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="metadata"
+      poster="work.jpg"
+      disablepictureinpicture
+      controlslist="nodownload noplaybackrate noremoteplayback"
+    >
+      <source src="work.mp4" type="video/mp4">
+    </video>
+    <div class="workTitle">РАБОТА</div>
+  </a>
 
-    <!-- меню справа -->
-    <button class="menuBtn" id="openMenu" aria-label="Открыть меню">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-    </button>
-
-    <!-- квадратный баннер видео (hero.mp4) -->
-    <div class="heroSquare" aria-label="Видео баннер">
-      <video
-        class="heroVideo"
-        id="heroVideo"
-        autoplay
-        loop
-        muted
-        playsinline
-        preload="metadata"
-        poster="hero.jpg"
-        disablepictureinpicture
-        controlslist="nodownload noplaybackrate noremoteplayback"
-      >
-        <source src="hero.mp4" type="video/mp4">
-      </video>
-    </div>
-
+  <!-- BUTTONS -->
+  <section class="grid" aria-label="Кнопки">
+    <a class="metalBtn" href="#">КАНАЛ</a>
+    <a class="metalBtn" href="#">ЧАТ</a>
+    <a class="metalBtn" href="#">ВАКАНСИИ</a>
+    <a class="metalBtn" href="#">СОЗДАТЕЛЬ</a>
+    <a class="metalBtn" href="#">БОТ</a>
+    <a class="metalBtn" href="#">ПОМОЩНИК</a>
   </section>
 
-  <main class="wrap">
-    <div class="h1">PEAKYCATS</div>
-    <div class="lead">магазинчик бла бла бла — покупайте больше цифровых товаров</div>
-
-    <!-- WORK -->
-    <a class="workBanner" href="jobs.html" aria-label="Работа">
-      <video
-        class="workVideo"
-        id="workVideo"
-        autoplay
-        loop
-        muted
-        playsinline
-        preload="metadata"
-        poster="work.jpg"
-        disablepictureinpicture
-        controlslist="nodownload noplaybackrate noremoteplayback"
-      >
-        <source src="work.mp4" type="video/mp4">
-      </video>
-    </a>
-
-    <!-- BUTTONS -->
-    <section class="grid" aria-label="Кнопки">
-      <a class="metalBtn" href="https://t.me/" target="_blank" rel="noopener">КАНАЛ</a>
-      <a class="metalBtn" href="#">ЧАТ</a>
-      <a class="metalBtn" href="jobs.html">ВАКАНСИИ</a>
-      <a class="metalBtn" href="https://t.me/663studio" target="_blank" rel="noopener">СОЗДАТЕЛЬ</a>
-      <a class="metalBtn" href="https://t.me/jdjfioa1ucusoangibot" target="_blank" rel="noopener">БОТ</a>
-      <a class="metalBtn" href="#">ПОМОЩНИК</a>
-    </section>
-
-    <footer class="foot">
-      Сделано — <a href="https://t.me/663studio" target="_blank" rel="noopener">твоя ссылка</a>
-    </footer>
-  </main>
-
-</div>
+  <footer class="foot">
+    Сделано — 🖤 <a href="#">663 design</a>
+  </footer>
+</main>
 
 <!-- MENU -->
 <div class="sheetWrap" id="sheet">
@@ -403,30 +381,20 @@ a{text-decoration:none}
   <aside class="sheet" role="dialog" aria-label="Меню">
     <h2>Меню</h2>
     <a href="#">Главная</a>
-    <a href="jobs.html">Работа</a>
+    <a href="#">Работа</a>
     <a href="#">Контакты</a>
-    <a href="jobs.html">Вакансии</a>
+    <a href="#">Вакансии</a>
   </aside>
 </div>
 
 <script>
-/* logo.jpg optional */
-(() => {
-  const img = document.getElementById('brandLogo');
-  img.onerror = () => { img.style.display = 'none'; };
-})();
-
-/* MENU */
+/* ===== MENU ===== */
 const sheet = document.getElementById('sheet');
 document.getElementById('openMenu').onclick = () => sheet.classList.add('active');
 document.getElementById('closeSheet').onclick = () => sheet.classList.remove('active');
 window.addEventListener('keydown', (e) => { if(e.key === 'Escape') sheet.classList.remove('active'); });
 
-/* VIDEO AUTOPLAY HARDENING + Loader (hero + work) */
-const loader = document.getElementById('loader');
-const MIN_LOAD_MS = 600;
-const t0 = Date.now();
-
+/* ===== VIDEO AUTOPLAY HARDENING (iOS/Android/PC) ===== */
 const vids = [
   document.getElementById('heroVideo'),
   document.getElementById('workVideo')
@@ -436,38 +404,26 @@ function tryPlay(v){
   if(!v) return;
   v.muted = true;
   v.playsInline = true;
+
   const p = v.play();
-  if(p && typeof p.catch === 'function') p.catch(()=>{});
+  if(p && typeof p.catch === 'function'){
+    p.catch(()=>{});
+  }
 }
-function kickAll(){ vids.forEach(tryPlay); }
-
-let canCount = 0;
-const need = Math.min(1, vids.length); // достаточно, чтобы одно видео ожило
-
-function settleLoader(){
-  const left = Math.max(0, MIN_LOAD_MS - (Date.now() - t0));
-  setTimeout(() => loader.classList.add('hidden'), left);
-}
-
-vids.forEach(v=>{
-  const ok = () => {
-    canCount++;
-    if (canCount >= need) settleLoader();
-  };
-  v.addEventListener('canplay', ok, { once:true });
-  v.addEventListener('loadeddata', ok, { once:true });
-});
+function kickAll(){ vids.forEach(v => tryPlay(v)); }
 
 kickAll();
-window.addEventListener('load', ()=>{
-  kickAll();
-  setTimeout(settleLoader, 900);
-});
+window.addEventListener('load', kickAll);
 ['touchstart','pointerdown','click','scroll'].forEach(evt=>{
   window.addEventListener(evt, kickAll, { once:true, passive:true });
 });
 document.addEventListener('visibilitychange', ()=>{
   if(!document.hidden) kickAll();
+});
+vids.forEach(v=>{
+  v.addEventListener('pause', ()=>{
+    if(!document.hidden) tryPlay(v);
+  });
 });
 </script>
 
