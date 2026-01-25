@@ -8,60 +8,60 @@
 
 <style>
 :root{
-  /* ===== NEW: colorful shimmering background palette ===== */
+  /* ===== NEW: переливающийся фон (по твоим цветам) ===== */
   --bg1:#CBD2E3;
   --bg2:#EFF0F8;
   --bg3:#D4D4DE;
   --bg4:#EDEFFB;
   --bg5:#EAECF8;
 
+  /* текст теперь темный (иначе на светлом фоне не читается) */
   --text:#1C1C1C;
-  --muted:rgba(28,28,28,.68);
-  --heading:#111318;
+  --muted:#4B5563;
+  --heading:#111827;
 
-  /* platinum neon */
-  --neonPlat: rgba(233,237,245,.92);
-  --neonPlat2: rgba(201,209,221,.85);
+  /* золото оставил для заголовка/баннера "РАБОТА" (ты не просил менять) */
+  --goldA:#D4AF37;
+  --goldB:#C9A24D;
+  --goldC:#F4E7B7;
+  --goldD:#B8933E;
+  --goldText:#0F1115;
 
-  /* MENU button colors */
-  --iceBlue: rgba(215, 242, 255, .92);
-  --navy: #0B1A3A;
-
-  /* ==== PLATINUM BUTTONS (как в PeakyCats) ==== */
+  /* ===== PLATINUM BUTTONS (как в PeakyCats) ===== */
   --text2:#1C1C1C;
 
-  /* платина для кнопок */
   --plat1:#E9EDF5;
   --plat2:#C9D1DD;
   --plat3:#FFFFFF;
 
-  /* мягкая тень */
-  --shadow: 6px 6px 14px rgba(160,170,185,.22),
-            -6px -6px 14px rgba(255,255,255,.92);
+  --shadowBtn: 6px 6px 14px rgba(160,170,185,.22),
+              -6px -6px 14px rgba(255,255,255,.92);
+
+  /* общий мягкий (для карточек) */
+  --shadow:0 10px 22px rgba(0,0,0,.18);
+
+  /* платиновый неон */
+  --platNeon:#E9EDF5;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
   font-family:Poppins,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-  /* NEW: animated bright gradient background */
-  background:
-    radial-gradient(1200px 900px at 10% 10%, var(--bg2), transparent 55%),
-    radial-gradient(1000px 800px at 90% 15%, var(--bg5), transparent 60%),
-    radial-gradient(900px 700px at 20% 85%, var(--bg1), transparent 60%),
-    radial-gradient(900px 700px at 85% 85%, var(--bg4), transparent 62%),
-    linear-gradient(120deg, var(--bg3), var(--bg2), var(--bg4), var(--bg1), var(--bg5));
-  background-size: 140% 140%;
-  animation: bgFlow 12s ease-in-out infinite;
-
   color:var(--text);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
+
+  /* перелив */
+  background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4),var(--bg5));
+  background-size:320% 320%;
+  animation:bgFlow 14s ease-in-out infinite;
 }
+
 @keyframes bgFlow{
-  0%{ background-position: 0% 50%; }
-  50%{ background-position: 100% 50%; }
-  100%{ background-position: 0% 50%; }
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 a,button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
@@ -72,31 +72,19 @@ a{text-decoration:none}
 .hero{
   position:relative;
   width:100%;
-  /* CHANGED: уменьшили область на 25% */
+
+  /* было: height:min(56vh,520px); min-height:320px;  -> минус ~25% */
   height:min(42vh,390px);
   min-height:240px;
-  overflow:hidden;
-  background:#000; /* если постер не подгрузился */
 
-  /* NEW: platinum neon outline */
-  border-radius: 0 0 22px 22px;
-  border:1px solid rgba(255,255,255,.22);
+  overflow:hidden;
+  background:#000;
+
+  /* платиновый неон-контур */
   box-shadow:
-    0 0 0 1px rgba(233,237,245,.28) inset,
-    0 0 18px rgba(233,237,245,.22),
-    0 0 36px rgba(201,209,221,.18);
-}
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:10px;
-  border-radius: 0 0 18px 18px;
-  pointer-events:none;
-  box-shadow:
-    0 0 0 1px rgba(233,237,245,.22),
-    0 0 22px rgba(233,237,245,.30),
-    0 0 44px rgba(201,209,221,.22);
-  mix-blend-mode:screen;
+    0 0 0 2px rgba(233,237,245,.70),
+    0 0 18px rgba(233,237,245,.55),
+    0 0 38px rgba(201,209,221,.35);
 }
 .heroVideo{
   position:absolute;
@@ -105,13 +93,13 @@ a{text-decoration:none}
   height:100%;
   object-fit:cover;
   object-position:center;
-  pointer-events:none; /* важно: клики проходят */
+  pointer-events:none;
 }
 .hero::after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.40));
+  background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.6));
   pointer-events:none;
 }
 
@@ -126,18 +114,28 @@ a{text-decoration:none}
   display:grid;
   place-items:center;
 
-  /* CHANGED: снежно-голубая */
-  background: var(--iceBlue);
+  /* переливающийся градиент */
+  background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4),var(--bg5));
+  background-size:320% 320%;
+  animation:bgFlow 10s ease-in-out infinite;
+
+  border:1px solid rgba(255,255,255,.75);
+  box-shadow:var(--shadowBtn), 0 0 16px rgba(233,237,245,.45);
   backdrop-filter:blur(10px);
-
-  box-shadow:
-    0 10px 22px rgba(10,20,40,.12),
-    0 0 0 1px rgba(11,26,58,.22) inset;
   z-index:5;
+  overflow:hidden;
 }
-
-/* CHANGED: темно-синие "стрелочки" (бургер линии) */
-.menuBtn svg{width:22px;height:22px;color:var(--navy)}
+.menuBtn::after{
+  content:"";
+  position:absolute;
+  inset:-60%;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.60) 50%,transparent 60%);
+  transform:translateX(-50%) rotate(12deg);
+  animation:shimmer 3s linear infinite;
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+.menuBtn svg{width:22px;height:22px;color:#1C1C1C}
 .menuBtn:active{transform:scale(.96)}
 
 /* ---------- CONTENT ---------- */
@@ -152,9 +150,14 @@ a{text-decoration:none}
   font-size:clamp(30px,7vw,44px);
   font-weight:900;
   letter-spacing:1.2px;
-  color: rgba(10,12,18,.92);
-  text-shadow: 0 10px 24px rgba(10,20,40,.10);
+  color:transparent;
+  background:linear-gradient(90deg,#fff6cf,var(--goldA),#f2e8c4,var(--goldB),#fff6cf);
+  background-size:220% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  animation:goldFlow 10s linear infinite;
 }
+@keyframes goldFlow{to{background-position:220% 50%}}
 
 .lead{
   margin-top:10px;
@@ -171,11 +174,9 @@ a{text-decoration:none}
   height:120px;
   border-radius:22px;
   overflow:hidden;
-  /* CHANGED: softer, platinum-like */
-  box-shadow: var(--shadow);
+  box-shadow:var(--shadow);
   background:#000;
   display:block;
-  border:1px solid rgba(255,255,255,.28);
 }
 .workVideo{
   position:absolute;
@@ -190,7 +191,7 @@ a{text-decoration:none}
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.45));
+  background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.65));
   pointer-events:none;
 }
 .workTitle{
@@ -201,25 +202,16 @@ a{text-decoration:none}
   font-size:26px;
   font-weight:900;
   letter-spacing:1px;
-
-  /* CHANGED: platinum text (instead of gold) */
   color:transparent;
-  background:linear-gradient(90deg,
-    #FFFFFF,
-    #E9EDF5,
-    #C9D1DD,
-    #FFFFFF,
-    #E9EDF5
-  );
+  background:linear-gradient(90deg,#fff6cf,var(--goldA),#f2e8c4,var(--goldB),#fff6cf);
   background-size:220% auto;
   -webkit-background-clip:text;
   background-clip:text;
-  animation:platFlow 9s linear infinite;
-  text-shadow:0 12px 26px rgba(0,0,0,.35);
+  animation:goldFlow 10s linear infinite;
+  text-shadow:0 12px 26px rgba(0,0,0,.45);
 }
-@keyframes platFlow{to{background-position:220% 50%}}
 
-/* ---------- PLATINUM BUTTONS ---------- */
+/* ---------- PLATINUM BUTTONS (как ты дал) ---------- */
 .grid{
   margin-top:18px;
   display:grid;
@@ -227,7 +219,6 @@ a{text-decoration:none}
   gap:12px;
 }
 
-/* сама кнопка */
 .metalBtn{
   position:relative;
   height:58px;
@@ -251,7 +242,7 @@ a{text-decoration:none}
       #AEB7C3
     );
 
-  box-shadow:var(--shadow);
+  box-shadow:var(--shadowBtn);
   overflow:hidden;
   user-select:none;
   transition:transform .15s ease, filter .15s ease;
@@ -282,6 +273,11 @@ a{text-decoration:none}
   filter:brightness(.985);
 }
 
+@media (hover:hover){
+  .metalBtn:hover{ filter:brightness(.995); }
+  .workBanner:hover{transform:translateY(-1px)}
+}
+
 /* ---------- MENU SHEET ---------- */
 .sheetWrap{
   position:fixed;
@@ -293,57 +289,77 @@ a{text-decoration:none}
 .sheetShade{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,.35);
+  background:rgba(0,0,0,.40);
 }
 
-/* CHANGED: silver-platinum, keep transparency */
 .sheet{
   position:absolute;
   right:0;
   top:0;
   height:100%;
   width:min(86vw,340px);
-  background: rgba(233,237,245,.22);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
   padding:18px;
+
+  /* переливающийся градиент */
+  background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4),var(--bg5));
+  background-size:320% 320%;
+  animation:bgFlow 12s ease-in-out infinite;
+
   transform:translateX(100%);
   transition:transform .22s ease-out;
 
-  border-left: 1px solid rgba(255,255,255,.55);
-  box-shadow: -18px 0 50px rgba(10,20,40,.18);
+  border-left:1px solid rgba(255,255,255,.65);
+  box-shadow:var(--shadowBtn), 0 0 18px rgba(233,237,245,.35);
+  overflow:hidden;
 }
-.sheetWrap.active .sheet{transform:none}
-.sheet h2{color:rgba(10,12,18,.92);font-weight:900;margin:8px 0 14px}
 
+/* легкое сияние внутри */
+.sheet::before{
+  content:"";
+  position:absolute;
+  inset:-70%;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);
+  transform:translateX(-45%) rotate(12deg);
+  animation:shimmer 4.2s linear infinite;
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+
+.sheetWrap.active .sheet{transform:none}
+.sheet h2{
+  color:var(--heading);
+  font-weight:900;
+  margin:8px 0 14px;
+  position:relative;
+  z-index:1;
+}
 .sheet a{
   display:block;
   padding:14px;
   border-radius:16px;
-  background: rgba(255,255,255,.34);
+
+  /* "стеклянная" кнопка внутри меню */
+  background:rgba(255,255,255,.40);
+  border:1px solid rgba(255,255,255,.60);
+
   margin-bottom:12px;
-  box-shadow: var(--shadow);
-  color: rgba(10,12,18,.88);
+  box-shadow:var(--shadowBtn);
+  position:relative;
+  z-index:1;
 }
 
+/* ---------- FOOTER ---------- */
 .foot{
   margin-top:18px;
   text-align:center;
   font-size:12px;
-  color:rgba(10,12,18,.58);
+  color:rgba(28,28,28,.75);
 }
 .foot a{
-  color:rgba(10,12,18,.78);
+  color:rgba(28,28,28,.92);
   font-weight:900;
   text-decoration:none;
-  border-bottom:1px dashed rgba(90,110,140,.45);
-}
-
-/* лёгкий hover только на ПК */
-@media (hover:hover){
-  .metalBtn:hover{ filter:brightness(.995); }
-  .workBanner:hover{ transform:translateY(-1px); }
+  border-bottom:1px dashed rgba(160,170,185,.65);
 }
 </style>
 </head>
@@ -448,9 +464,7 @@ function tryPlay(v){
   }
 }
 
-function kickAll(){
-  vids.forEach(v => tryPlay(v));
-}
+function kickAll(){ vids.forEach(v => tryPlay(v)); }
 
 /* 1) сразу */
 kickAll();
