@@ -22,11 +22,13 @@
   --plat1:#D3D9E1;
   --plat2:#B0B7C1;
   --plat3:#FFFFFF;
-  --plat4:#A2A9B1;
 
   /* Высоты */
   --heroH:min(40vh, 380px);
   --heroMin:240px;
+
+  /* фиксированная высота viewport для фонового видео (ставим через JS на старте) */
+  --svh: 1vh;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -42,22 +44,25 @@ a,button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 button{border:0;background:none;cursor:pointer}
 a{text-decoration:none}
 
-/* ===== Background video (hero.mp4 как бекграунд сайта) ===== */
+/* ===== Background video (hero.mp4 как бекграунд сайта) =====
+   Делает “статичным” на мобилках: высота фиксируется один раз через --svh */
 .bgVideo{
   position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
+  top:0; left:0;
+  width:100vw;
+  height:calc(var(--svh) * 100);
   object-fit:cover;
   object-position:center;
   z-index:-3;
   pointer-events:none;
+  transform:translateZ(0);
+  will-change:transform;
 }
-
-/* мягкая “вуаль” поверх фонового видео, чтобы всё читалось */
 .bgOverlay{
   position:fixed;
-  inset:0;
+  top:0; left:0;
+  width:100vw;
+  height:calc(var(--svh) * 100);
   z-index:-2;
   pointer-events:none;
   background:
@@ -95,7 +100,7 @@ a{text-decoration:none}
   min-height:100dvh;
 }
 
-/* ---------- HERO (пустое поле, без картинки) ---------- */
+/* ---------- HERO (пустое поле) ---------- */
 .hero{
   position:relative;
   width:100%;
@@ -106,8 +111,6 @@ a{text-decoration:none}
   background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(244,246,249,.75));
   box-shadow:var(--shadow);
 }
-
-/* лёгкая дымка внутри hero */
 .hero::after{
   content:"";
   position:absolute;
@@ -118,21 +121,48 @@ a{text-decoration:none}
     linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.04));
 }
 
-/* banner.mp4 на месте бывшего hero (как плашка сверху) */
-.heroBanner{
+/* ===== Бренд слева сверху (лого + PEAKYCATS) ===== */
+.brand{
   position:absolute;
   top:14px;
   left:14px;
-  right:70px; /* оставляем место под меню справа */
-  height:46px;
+  z-index:6;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  border-radius:14px;
+  background:rgba(255,255,255,.38);
+  backdrop-filter:blur(10px);
+}
+.brandLogo{
+  width:26px;
+  height:26px;
+  object-fit:cover;
+  border-radius:8px;
+  display:block;
+}
+.brandName{
+  font-weight:900;
+  letter-spacing:1px;
+  color:var(--text2);
+  font-size:14px;
+  line-height:1;
+}
+
+/* banner.mp4 внутри hero (на месте бывшего hero.mp4) */
+.heroBanner{
+  position:absolute;
+  top:70px;         /* ниже бренда и меню */
+  left:14px;
+  right:14px;
+  height:52px;
   border-radius:16px;
   overflow:hidden;
   box-shadow:var(--shadow);
   z-index:5;
   background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(244,246,249,.75));
 }
-
-/* видео внутри баннера */
 .bannerVideo{
   position:absolute;
   inset:0;
@@ -160,10 +190,10 @@ a{text-decoration:none}
   border-radius:14px;
   display:grid;
   place-items:center;
-  background:transparent;     /* ПРОЗРАЧНО */
-  box-shadow:none;            /* без тени */
+  background:transparent; /* прозрачная */
+  box-shadow:none;
   z-index:6;
-  backdrop-filter:blur(10px); /* лёгкий blur, можно убрать если не надо */
+  backdrop-filter:blur(10px);
   transition:transform .14s ease, filter .14s ease;
   outline:none;
 }
@@ -174,7 +204,7 @@ a{text-decoration:none}
 /* ---------- CONTENT ---------- */
 .wrap{ padding:18px 16px 28px; }
 
-/* Заголовок */
+/* (оставил заголовок ниже как есть — если хочешь убрать, скажи) */
 .h1{
   text-align:center;
   font-size:clamp(30px,7vw,44px);
@@ -280,10 +310,7 @@ a{text-decoration:none}
   pointer-events:none;
 }
 @keyframes shimmer{to{transform:translateX(50%) rotate(12deg)}}
-.metalBtn:active{
-  transform:translateY(1px) scale(.98);
-  filter:brightness(.985);
-}
+.metalBtn:active{ transform:translateY(1px) scale(.98); filter:brightness(.985); }
 
 /* ---------- MENU SHEET ---------- */
 .sheetWrap{ position:fixed; inset:0; display:none; z-index:1000; }
@@ -367,8 +394,15 @@ a{text-decoration:none}
 
 <div class="page">
 
-  <!-- HERO (пустой блок) + banner.mp4 плашка -->
+  <!-- HERO -->
   <section class="hero">
+    <!-- Бренд слева сверху -->
+    <div class="brand" aria-label="PEAKYCATS">
+      <img class="brandLogo" id="brandLogo" src="logo.jpg" alt="Logo">
+      <div class="brandName">PEAKYCATS</div>
+    </div>
+
+    <!-- banner.mp4 внутри пустого hero -->
     <div class="heroBanner" aria-label="Баннер">
       <video
         class="bannerVideo"
@@ -386,6 +420,7 @@ a{text-decoration:none}
       </video>
     </div>
 
+    <!-- Меню справа сверху -->
     <button class="menuBtn" id="openMenu" aria-label="Открыть меню">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M4 6h16M4 12h16M4 18h16"/>
@@ -394,6 +429,7 @@ a{text-decoration:none}
   </section>
 
   <main class="wrap">
+    <!-- если хочешь, могу убрать этот заголовок полностью -->
     <div class="h1">PEAKYCATS</div>
     <div class="lead">магазинчик бла бла бла — покупайте больше цифровых товаров</div>
 
@@ -446,6 +482,18 @@ a{text-decoration:none}
 </div>
 
 <script>
+/* ===== фиксируем высоту viewport один раз, чтобы фон-видео не “увеличивалось” при скролле ===== */
+(function lockViewportHeightOnce(){
+  const svh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--svh', svh + 'px');
+})();
+
+/* ===== если logo.jpg нет — прячем место ===== */
+(function(){
+  const img = document.getElementById('brandLogo');
+  img.onerror = () => { img.style.display = 'none'; };
+})();
+
 /* ===== MENU ===== */
 const sheet = document.getElementById('sheet');
 document.getElementById('openMenu').onclick = () => sheet.classList.add('active');
@@ -473,7 +521,7 @@ function tryPlay(v){
 function kickAll(){ vids.forEach(tryPlay); }
 
 let canCount = 0;
-const need = Math.min(2, vids.length); // достаточно чтобы фон и ещё одно видео ожили
+const need = Math.min(2, vids.length);
 
 function settleLoader(){
   const left = Math.max(0, MIN_LOAD_MS - (Date.now() - t0));
@@ -489,14 +537,12 @@ vids.forEach(v=>{
   v.addEventListener('loadeddata', onOk, { once:true });
 });
 
-/* если вдруг события не придут — всё равно прячем после load */
+kickAll();
 window.addEventListener('load', ()=>{
   kickAll();
   setTimeout(()=>settleLoader(), 900);
 });
 
-/* дополнительные “пинки” */
-kickAll();
 ['touchstart','pointerdown','click','scroll'].forEach(evt=>{
   window.addEventListener(evt, kickAll, { once:true, passive:true });
 });
