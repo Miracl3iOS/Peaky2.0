@@ -8,27 +8,26 @@
 
 <style>
 :root{
-  /* Фон/текст */
-  --bg:#F4F6F9;
-  --bg2:#FFFFFF;
+  /* Текст */
   --text:#2A2A2A;
   --text2:#1C1C1C;
   --muted:#A1A1A1;
-
-  /* Тени — уменьшены */
-  --shadow: 7px 7px 16px rgba(170,180,195,.30), -7px -7px 16px rgba(255,255,255,.88);
 
   /* Платина/серебро */
   --plat1:#D3D9E1;
   --plat2:#B0B7C1;
   --plat3:#FFFFFF;
 
-  /* Высоты */
-  --heroH:min(40vh, 380px);
-  --heroMin:240px;
+  /* Меньше теней */
+  --shadow: 6px 6px 14px rgba(170,180,195,.24), -6px -6px 14px rgba(255,255,255,.86);
 
-  /* фиксированная высота viewport для фонового видео (ставим через JS на старте) */
-  --svh: 1vh;
+  /* HERO (уменьшили) */
+  --heroH:min(28vh, 280px);
+  --heroMin:200px;
+
+  /* Обводка */
+  --stroke: rgba(190,198,210,.70);
+  --stroke2: rgba(255,255,255,.70);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,45 +37,26 @@ body{
   color:var(--text);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
-  background:linear-gradient(180deg,var(--bg2),var(--bg));
+
+  /* Платиново-серый градиент как на рефе (без видео) */
+  background:
+    radial-gradient(1200px 700px at 50% 15%, rgba(255,255,255,.95), rgba(255,255,255,0) 60%),
+    radial-gradient(900px 520px at 20% 60%, rgba(245,247,250,.95), rgba(245,247,250,0) 65%),
+    radial-gradient(900px 520px at 80% 65%, rgba(240,242,246,.95), rgba(240,242,246,0) 70%),
+    linear-gradient(180deg, #FFFFFF 0%, #F4F6F9 55%, #ECEFF4 100%);
 }
 a,button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 button{border:0;background:none;cursor:pointer}
 a{text-decoration:none}
-
-/* ===== Background video (hero.mp4 как бекграунд сайта) =====
-   Делает “статичным” на мобилках: высота фиксируется один раз через --svh */
-.bgVideo{
-  position:fixed;
-  top:0; left:0;
-  width:100vw;
-  height:calc(var(--svh) * 100);
-  object-fit:cover;
-  object-position:center;
-  z-index:-3;
-  pointer-events:none;
-  transform:translateZ(0);
-  will-change:transform;
-}
-.bgOverlay{
-  position:fixed;
-  top:0; left:0;
-  width:100vw;
-  height:calc(var(--svh) * 100);
-  z-index:-2;
-  pointer-events:none;
-  background:
-    radial-gradient(1200px 650px at 25% 20%, rgba(255,255,255,.68), rgba(255,255,255,0) 60%),
-    radial-gradient(900px 520px at 75% 40%, rgba(255,255,255,.55), rgba(255,255,255,0) 65%),
-    linear-gradient(180deg, rgba(255,255,255,.45), rgba(244,246,249,.70));
-}
 
 /* ===== Loader ===== */
 .loader{
   position:fixed;
   inset:0;
   z-index:9999;
-  background:linear-gradient(180deg,var(--bg2),var(--bg));
+  background:
+    radial-gradient(1200px 700px at 50% 15%, rgba(255,255,255,.95), rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, #FFFFFF 0%, #F4F6F9 70%, #ECEFF4 100%);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -100,25 +80,31 @@ a{text-decoration:none}
   min-height:100dvh;
 }
 
-/* ---------- HERO (пустое поле) ---------- */
+/* ---------- HERO (пустая область) ---------- */
 .hero{
   position:relative;
   width:100%;
   height:var(--heroH);
   min-height:var(--heroMin);
   overflow:hidden;
-  border-radius:0; /* верхний блок без скруглений */
-  background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(244,246,249,.75));
+  border-radius:0;              /* без скруглений */
   box-shadow:var(--shadow);
+
+  /* обводка + лёгкий стеклянный фон */
+  border:1px solid var(--stroke);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.55), rgba(244,246,249,.78));
 }
+
+/* внутренний “свет” */
 .hero::after{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
   background:
-    radial-gradient(900px 360px at 30% 18%, rgba(255,255,255,.65), rgba(255,255,255,0) 62%),
-    linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.04));
+    radial-gradient(900px 360px at 35% 20%, rgba(255,255,255,.75), rgba(255,255,255,0) 62%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.03));
 }
 
 /* ===== Бренд слева сверху (лого + PEAKYCATS) ===== */
@@ -132,8 +118,9 @@ a{text-decoration:none}
   gap:10px;
   padding:8px 10px;
   border-radius:14px;
-  background:rgba(255,255,255,.38);
+  background:rgba(255,255,255,.28);
   backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.35);
 }
 .brandLogo{
   width:26px;
@@ -150,36 +137,6 @@ a{text-decoration:none}
   line-height:1;
 }
 
-/* banner.mp4 внутри hero (на месте бывшего hero.mp4) */
-.heroBanner{
-  position:absolute;
-  top:70px;         /* ниже бренда и меню */
-  left:14px;
-  right:14px;
-  height:52px;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:var(--shadow);
-  z-index:5;
-  background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(244,246,249,.75));
-}
-.bannerVideo{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  pointer-events:none;
-}
-.heroBanner::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0));
-}
-
 /* MENU BUTTON: прозрачная */
 .menuBtn{
   position:absolute;
@@ -190,7 +147,7 @@ a{text-decoration:none}
   border-radius:14px;
   display:grid;
   place-items:center;
-  background:transparent; /* прозрачная */
+  background:transparent;
   box-shadow:none;
   z-index:6;
   backdrop-filter:blur(10px);
@@ -199,12 +156,11 @@ a{text-decoration:none}
 }
 .menuBtn svg{width:22px;height:22px;color:rgba(28,28,28,.92)}
 .menuBtn:active{transform:scale(.96);filter:brightness(.98)}
-.menuBtn:focus-visible{outline:none}
 
 /* ---------- CONTENT ---------- */
 .wrap{ padding:18px 16px 28px; }
 
-/* (оставил заголовок ниже как есть — если хочешь убрать, скажи) */
+/* Заголовок (если хочешь — скажи, уберу этот дубль, оставим только верхний бренд) */
 .h1{
   text-align:center;
   font-size:clamp(30px,7vw,44px);
@@ -236,7 +192,8 @@ a{text-decoration:none}
   border-radius:22px;
   overflow:hidden;
   box-shadow:var(--shadow);
-  background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(244,246,249,.75));
+  background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(244,246,249,.78));
+  border:1px solid rgba(255,255,255,.35);
   display:block;
 }
 .workVideo{
@@ -253,7 +210,7 @@ a{text-decoration:none}
   position:absolute;
   inset:0;
   background:
-    radial-gradient(800px 280px at 20% 55%, rgba(255,255,255,.38), rgba(255,255,255,0) 60%),
+    radial-gradient(800px 280px at 20% 55%, rgba(255,255,255,.36), rgba(255,255,255,0) 60%),
     linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.10));
   pointer-events:none;
 }
@@ -291,13 +248,24 @@ a{text-decoration:none}
   font-weight:900;
   letter-spacing:.6px;
   color:var(--text2);
+
   background:
     linear-gradient(180deg, rgba(255,255,255,.60), rgba(255,255,255,0) 38%),
-    linear-gradient(120deg,#aeb7c3,var(--plat1),#e8edf5,var(--plat3),var(--plat2),#e8edf5,#aeb7c3);
+    linear-gradient(120deg,
+      #aeb7c3,
+      var(--plat1),
+      #e8edf5,
+      var(--plat3),
+      var(--plat2),
+      #e8edf5,
+      #aeb7c3
+    );
+
   box-shadow:var(--shadow);
   overflow:hidden;
   user-select:none;
   transition:transform .15s ease, filter .15s ease;
+  border:0;
 }
 .metalBtn::after{
   content:"";
@@ -343,6 +311,7 @@ a{text-decoration:none}
   box-shadow:var(--shadow);
   color:var(--text2);
   font-weight:800;
+  border:1px solid rgba(255,255,255,.35);
 }
 .sheet a:active{transform:translateY(1px)}
 
@@ -369,23 +338,6 @@ a{text-decoration:none}
 
 <body>
 
-<!-- Background video -->
-<video
-  class="bgVideo"
-  id="bgVideo"
-  autoplay
-  loop
-  muted
-  playsinline
-  preload="metadata"
-  poster="hero.jpg"
-  disablepictureinpicture
-  controlslist="nodownload noplaybackrate noremoteplayback"
->
-  <source src="hero.mp4" type="video/mp4">
-</video>
-<div class="bgOverlay" aria-hidden="true"></div>
-
 <!-- Loader -->
 <div class="loader" id="loader" aria-live="polite">
   <div class="spinner"></div>
@@ -394,33 +346,13 @@ a{text-decoration:none}
 
 <div class="page">
 
-  <!-- HERO -->
+  <!-- HERO (пустой, уменьшен, с обводкой; БЕЛОЙ “кнопки”/баннера сверху больше нет) -->
   <section class="hero">
-    <!-- Бренд слева сверху -->
     <div class="brand" aria-label="PEAKYCATS">
       <img class="brandLogo" id="brandLogo" src="logo.jpg" alt="Logo">
       <div class="brandName">PEAKYCATS</div>
     </div>
 
-    <!-- banner.mp4 внутри пустого hero -->
-    <div class="heroBanner" aria-label="Баннер">
-      <video
-        class="bannerVideo"
-        id="bannerVideo"
-        autoplay
-        loop
-        muted
-        playsinline
-        preload="metadata"
-        poster="banner.jpg"
-        disablepictureinpicture
-        controlslist="nodownload noplaybackrate noremoteplayback"
-      >
-        <source src="banner.mp4" type="video/mp4">
-      </video>
-    </div>
-
-    <!-- Меню справа сверху -->
     <button class="menuBtn" id="openMenu" aria-label="Открыть меню">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M4 6h16M4 12h16M4 18h16"/>
@@ -429,7 +361,6 @@ a{text-decoration:none}
   </section>
 
   <main class="wrap">
-    <!-- если хочешь, могу убрать этот заголовок полностью -->
     <div class="h1">PEAKYCATS</div>
     <div class="lead">магазинчик бла бла бла — покупайте больше цифровых товаров</div>
 
@@ -482,34 +413,24 @@ a{text-decoration:none}
 </div>
 
 <script>
-/* ===== фиксируем высоту viewport один раз, чтобы фон-видео не “увеличивалось” при скролле ===== */
-(function lockViewportHeightOnce(){
-  const svh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--svh', svh + 'px');
-})();
-
-/* ===== если logo.jpg нет — прячем место ===== */
+/* logo.jpg optional */
 (function(){
   const img = document.getElementById('brandLogo');
   img.onerror = () => { img.style.display = 'none'; };
 })();
 
-/* ===== MENU ===== */
+/* MENU */
 const sheet = document.getElementById('sheet');
 document.getElementById('openMenu').onclick = () => sheet.classList.add('active');
 document.getElementById('closeSheet').onclick = () => sheet.classList.remove('active');
 window.addEventListener('keydown', (e) => { if(e.key === 'Escape') sheet.classList.remove('active'); });
 
-/* ===== VIDEO AUTOPLAY HARDENING + Loader ===== */
+/* VIDEO AUTOPLAY HARDENING (только work.mp4) + Loader */
 const loader = document.getElementById('loader');
 const MIN_LOAD_MS = 600;
 const t0 = Date.now();
 
-const vids = [
-  document.getElementById('bgVideo'),
-  document.getElementById('bannerVideo'),
-  document.getElementById('workVideo')
-].filter(Boolean);
+const vids = [document.getElementById('workVideo')].filter(Boolean);
 
 function tryPlay(v){
   if(!v) return;
@@ -518,41 +439,30 @@ function tryPlay(v){
   const p = v.play();
   if(p && typeof p.catch === 'function') p.catch(()=>{});
 }
-function kickAll(){ vids.forEach(tryPlay); }
-
-let canCount = 0;
-const need = Math.min(2, vids.length);
 
 function settleLoader(){
   const left = Math.max(0, MIN_LOAD_MS - (Date.now() - t0));
   setTimeout(() => loader.classList.add('hidden'), left);
 }
 
-vids.forEach(v=>{
-  const onOk = () => {
-    canCount++;
-    if (canCount >= need) settleLoader();
-  };
+if (vids.length){
+  const v = vids[0];
+  const onOk = () => settleLoader();
   v.addEventListener('canplay', onOk, { once:true });
   v.addEventListener('loadeddata', onOk, { once:true });
-});
+  tryPlay(v);
+} else {
+  window.addEventListener('load', settleLoader);
+}
 
-kickAll();
-window.addEventListener('load', ()=>{
-  kickAll();
-  setTimeout(()=>settleLoader(), 900);
-});
+/* запасной вариант */
+window.addEventListener('load', ()=> setTimeout(settleLoader, 900));
 
 ['touchstart','pointerdown','click','scroll'].forEach(evt=>{
-  window.addEventListener(evt, kickAll, { once:true, passive:true });
+  window.addEventListener(evt, ()=>vids.forEach(tryPlay), { once:true, passive:true });
 });
 document.addEventListener('visibilitychange', ()=>{
-  if(!document.hidden) kickAll();
-});
-vids.forEach(v=>{
-  v.addEventListener('pause', ()=>{
-    if(!document.hidden) tryPlay(v);
-  });
+  if(!document.hidden) vids.forEach(tryPlay);
 });
 </script>
 
