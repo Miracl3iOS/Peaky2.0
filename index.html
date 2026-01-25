@@ -8,26 +8,35 @@
 
 <style>
 :root{
-  /* Текст */
   --text:#2A2A2A;
   --text2:#1C1C1C;
-  --muted:#A1A1A1;
+  --muted:#8E96A3;
 
-  /* Платина/серебро */
-  --plat1:#D3D9E1;
-  --plat2:#B0B7C1;
+  /* более “яркий” платиново-серебряный набор */
+  --bgA:#FFFFFF;
+  --bgB:#F3F5FA;
+  --bgC:#E6EBF4;
+  --bgD:#D7DEE8;
+
+  /* платина для кнопок */
+  --plat1:#E9EDF5;
+  --plat2:#C9D1DD;
   --plat3:#FFFFFF;
 
-  /* Меньше теней */
-  --shadow: 6px 6px 14px rgba(170,180,195,.24), -6px -6px 14px rgba(255,255,255,.86);
+  /* меньше теней */
+  --shadow: 6px 6px 14px rgba(160,170,185,.22), -6px -6px 14px rgba(255,255,255,.92);
 
-  /* HERO (уменьшили) */
-  --heroH:min(28vh, 280px);
-  --heroMin:200px;
+  /* обводки */
+  --stroke:#C7CFDB;
+  --strokeSoft:#FFFFFF;
 
-  /* Обводка */
-  --stroke: rgba(190,198,210,.70);
-  --stroke2: rgba(255,255,255,.70);
+  /* HERO (чуть меньше) */
+  --heroH:min(26vh, 260px);
+  --heroMin:190px;
+
+  /* MENU BUTTON (больше, квадрат 1:1) */
+  --menuSize:56px;
+  --menuRadius:18px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,12 +47,11 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 
-  /* Платиново-серый градиент как на рефе (без видео) */
+  /* Насыщенный платиново-серебряный фон БЕЗ прозрачности */
   background:
-    radial-gradient(1200px 700px at 50% 15%, rgba(255,255,255,.95), rgba(255,255,255,0) 60%),
-    radial-gradient(900px 520px at 20% 60%, rgba(245,247,250,.95), rgba(245,247,250,0) 65%),
-    radial-gradient(900px 520px at 80% 65%, rgba(240,242,246,.95), rgba(240,242,246,0) 70%),
-    linear-gradient(180deg, #FFFFFF 0%, #F4F6F9 55%, #ECEFF4 100%);
+    radial-gradient(1000px 600px at 25% 18%, #FFFFFF 0%, #F3F5FA 45%, #E6EBF4 100%),
+    radial-gradient(1000px 600px at 78% 62%, #FFFFFF 0%, #EEF2F7 48%, #D7DEE8 100%),
+    linear-gradient(180deg, #FFFFFF 0%, #F3F5FA 42%, #E6EBF4 78%, #D7DEE8 100%);
 }
 a,button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 button{border:0;background:none;cursor:pointer}
@@ -54,9 +62,7 @@ a{text-decoration:none}
   position:fixed;
   inset:0;
   z-index:9999;
-  background:
-    radial-gradient(1200px 700px at 50% 15%, rgba(255,255,255,.95), rgba(255,255,255,0) 60%),
-    linear-gradient(180deg, #FFFFFF 0%, #F4F6F9 70%, #ECEFF4 100%);
+  background:linear-gradient(180deg, #FFFFFF 0%, #F3F5FA 55%, #D7DEE8 100%);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -87,24 +93,25 @@ a{text-decoration:none}
   height:var(--heroH);
   min-height:var(--heroMin);
   overflow:hidden;
-  border-radius:0;              /* без скруглений */
+  border-radius:0;
   box-shadow:var(--shadow);
 
-  /* обводка + лёгкий стеклянный фон */
+  /* обводка */
   border:1px solid var(--stroke);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.55), rgba(244,246,249,.78));
+
+  /* плотный светлый градиент (без прозрачности) */
+  background:linear-gradient(180deg, #FFFFFF 0%, #F3F5FA 60%, #E6EBF4 100%);
 }
 
-/* внутренний “свет” */
+/* внутренний мягкий “свет” — тоже без прозрачности не сделать, но он не “вуаль” фона;
+   если хочешь убрать вообще — скажи, удалю ::after полностью */
 .hero::after{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
-  background:
-    radial-gradient(900px 360px at 35% 20%, rgba(255,255,255,.75), rgba(255,255,255,0) 62%),
-    linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.03));
+  background:radial-gradient(900px 360px at 35% 22%, #FFFFFF 0%, #F3F5FA 55%, #E6EBF4 100%);
+  opacity:.55;
 }
 
 /* ===== Бренд слева сверху (лого + PEAKYCATS) ===== */
@@ -117,10 +124,12 @@ a{text-decoration:none}
   align-items:center;
   gap:10px;
   padding:8px 10px;
-  border-radius:14px;
-  background:rgba(255,255,255,.28);
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,.35);
+  border-radius:16px;
+
+  /* “стекло” убрал — сделал плотнее и чище */
+  background:linear-gradient(180deg, #FFFFFF 0%, #F3F5FA 100%);
+  border:1px solid #FFFFFF;
+  box-shadow: 4px 4px 10px rgba(160,170,185,.16);
 }
 .brandLogo{
   width:26px;
@@ -137,30 +146,33 @@ a{text-decoration:none}
   line-height:1;
 }
 
-/* MENU BUTTON: прозрачная */
+/* MENU BUTTON: больше, квадрат 1:1, скругление как у карточек, прозрачная */
 .menuBtn{
   position:absolute;
   top:14px;
   right:14px;
-  width:46px;
-  height:46px;
-  border-radius:14px;
+  width:var(--menuSize);
+  height:var(--menuSize);
+  border-radius:var(--menuRadius);
   display:grid;
   place-items:center;
-  background:transparent;
-  box-shadow:none;
+
+  background:transparent; /* прозрачная */
+  box-shadow:none;        /* без тени */
+  border:1px solid var(--stroke); /* аккуратная обводка чтобы не терялась */
+
   z-index:6;
-  backdrop-filter:blur(10px);
   transition:transform .14s ease, filter .14s ease;
   outline:none;
 }
-.menuBtn svg{width:22px;height:22px;color:rgba(28,28,28,.92)}
+.menuBtn svg{width:24px;height:24px;color:rgba(28,28,28,.92)}
 .menuBtn:active{transform:scale(.96);filter:brightness(.98)}
+.menuBtn:focus-visible{outline:none}
 
 /* ---------- CONTENT ---------- */
 .wrap{ padding:18px 16px 28px; }
 
-/* Заголовок (если хочешь — скажи, уберу этот дубль, оставим только верхний бренд) */
+/* Заголовок */
 .h1{
   text-align:center;
   font-size:clamp(30px,7vw,44px);
@@ -192,8 +204,8 @@ a{text-decoration:none}
   border-radius:22px;
   overflow:hidden;
   box-shadow:var(--shadow);
-  background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(244,246,249,.78));
-  border:1px solid rgba(255,255,255,.35);
+  background:linear-gradient(180deg, #FFFFFF 0%, #F3F5FA 60%, #E6EBF4 100%);
+  border:1px solid #FFFFFF;
   display:block;
 }
 .workVideo{
@@ -209,9 +221,7 @@ a{text-decoration:none}
   content:"";
   position:absolute;
   inset:0;
-  background:
-    radial-gradient(800px 280px at 20% 55%, rgba(255,255,255,.36), rgba(255,255,255,0) 60%),
-    linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.10));
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.10));
   pointer-events:none;
 }
 .workTitle{
@@ -252,13 +262,13 @@ a{text-decoration:none}
   background:
     linear-gradient(180deg, rgba(255,255,255,.60), rgba(255,255,255,0) 38%),
     linear-gradient(120deg,
-      #aeb7c3,
+      #AEB7C3,
       var(--plat1),
-      #e8edf5,
+      #E8EDF5,
       var(--plat3),
       var(--plat2),
-      #e8edf5,
-      #aeb7c3
+      #E8EDF5,
+      #AEB7C3
     );
 
   box-shadow:var(--shadow);
@@ -292,7 +302,7 @@ a{text-decoration:none}
   position:absolute; right:0; top:0;
   height:100%;
   width:min(86vw,340px);
-  background:rgba(244,246,249,.92);
+  background:linear-gradient(180deg, #FFFFFF 0%, #F3F5FA 60%, #E6EBF4 100%);
   padding:18px;
   transform:translateX(100%);
   transition:transform .22s ease-out;
@@ -306,12 +316,12 @@ a{text-decoration:none}
   display:block;
   padding:14px;
   border-radius:16px;
-  background:linear-gradient(145deg, rgba(255,255,255,.65), rgba(244,246,249,.85));
+  background:linear-gradient(180deg, #FFFFFF 0%, #F3F5FA 100%);
   margin-bottom:12px;
   box-shadow:var(--shadow);
   color:var(--text2);
   font-weight:800;
-  border:1px solid rgba(255,255,255,.35);
+  border:1px solid #FFFFFF;
 }
 .sheet a:active{transform:translateY(1px)}
 
@@ -320,13 +330,13 @@ a{text-decoration:none}
   margin-top:18px;
   text-align:center;
   font-size:12px;
-  color:rgba(161,161,161,.95);
+  color:rgba(120,130,145,.95);
 }
 .foot a{
   color:rgba(42,42,42,.9);
   font-weight:900;
   text-decoration:none;
-  border-bottom:1px dashed rgba(180,188,202,.95);
+  border-bottom:1px dashed rgba(160,170,185,.85);
 }
 
 @media (hover:hover){
@@ -346,7 +356,7 @@ a{text-decoration:none}
 
 <div class="page">
 
-  <!-- HERO (пустой, уменьшен, с обводкой; БЕЛОЙ “кнопки”/баннера сверху больше нет) -->
+  <!-- HERO -->
   <section class="hero">
     <div class="brand" aria-label="PEAKYCATS">
       <img class="brandLogo" id="brandLogo" src="logo.jpg" alt="Logo">
@@ -425,45 +435,34 @@ document.getElementById('openMenu').onclick = () => sheet.classList.add('active'
 document.getElementById('closeSheet').onclick = () => sheet.classList.remove('active');
 window.addEventListener('keydown', (e) => { if(e.key === 'Escape') sheet.classList.remove('active'); });
 
-/* VIDEO AUTOPLAY HARDENING (только work.mp4) + Loader */
+/* Loader: ждём минимум 600ms и данные видео WORK (если оно есть) */
 const loader = document.getElementById('loader');
 const MIN_LOAD_MS = 600;
 const t0 = Date.now();
-
-const vids = [document.getElementById('workVideo')].filter(Boolean);
-
-function tryPlay(v){
-  if(!v) return;
-  v.muted = true;
-  v.playsInline = true;
-  const p = v.play();
-  if(p && typeof p.catch === 'function') p.catch(()=>{});
-}
 
 function settleLoader(){
   const left = Math.max(0, MIN_LOAD_MS - (Date.now() - t0));
   setTimeout(() => loader.classList.add('hidden'), left);
 }
 
-if (vids.length){
-  const v = vids[0];
-  const onOk = () => settleLoader();
-  v.addEventListener('canplay', onOk, { once:true });
-  v.addEventListener('loadeddata', onOk, { once:true });
-  tryPlay(v);
+const v = document.getElementById('workVideo');
+if (v){
+  const tryPlay = () => {
+    v.muted = true;
+    v.playsInline = true;
+    const p = v.play();
+    if(p && typeof p.catch === 'function') p.catch(()=>{});
+  };
+  v.addEventListener('canplay', settleLoader, { once:true });
+  v.addEventListener('loadeddata', settleLoader, { once:true });
+  tryPlay();
+  window.addEventListener('load', ()=>{ tryPlay(); setTimeout(settleLoader, 900); });
+  ['touchstart','pointerdown','click','scroll'].forEach(evt=>{
+    window.addEventListener(evt, tryPlay, { once:true, passive:true });
+  });
 } else {
-  window.addEventListener('load', settleLoader);
+  window.addEventListener('load', ()=>setTimeout(settleLoader, 700));
 }
-
-/* запасной вариант */
-window.addEventListener('load', ()=> setTimeout(settleLoader, 900));
-
-['touchstart','pointerdown','click','scroll'].forEach(evt=>{
-  window.addEventListener(evt, ()=>vids.forEach(tryPlay), { once:true, passive:true });
-});
-document.addEventListener('visibilitychange', ()=>{
-  if(!document.hidden) vids.forEach(tryPlay);
-});
 </script>
 
 </body>
