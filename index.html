@@ -3,119 +3,49 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>peakycats</title>
+<title>PROSTIK Ufa</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  /* ТВОИ ЦВЕТА */
-  --c1:#CBD2E3;
-  --c2:#EFF0F8;
-  --c3:#D4D4DE;
-  --c4:#EDEFFB;
-  --c5:#EAECF8;
+  --bg:#1A1411;
 
-  --text:#1C1C1C;
-  --muted:#4B5563;
-  --heading:#111827;
+  --text:#E6E6E6;
+  --muted:#9CA3AF;
+  --heading:#F5F5F5;
 
-  /* Платина (кнопки) */
-  --text2:#1C1C1C;
-  --plat1:#E9EDF5;
-  --plat2:#C9D1DD;
-  --plat3:#FFFFFF;
+  --goldA:#D4AF37;
+  --goldB:#C9A24D;
+  --goldC:#F4E7B7;
+  --goldD:#B8933E;
+  --goldText:#0F1115;
 
-  /* мягкая тень */
-  --shadowBtn: 6px 6px 14px rgba(160,170,185,.22),
-              -6px -6px 14px rgba(255,255,255,.92);
-
-  --shadowCard: 0 10px 22px rgba(0,0,0,.18);
-
-  /* НЕОН */
-  --neonA: rgba(255,255,255,.85);
-  --neonB: rgba(233,237,245,.70);
-  --neonC: rgba(201,209,221,.55);
+  /* меньше теней */
+  --shadow:0 10px 22px rgba(0,0,0,.35);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
   font-family:Poppins,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+  background:var(--bg);
   color:var(--text);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
-
-  /* яркий переливающийся фон */
-  background:linear-gradient(120deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));
-  background-size:320% 320%;
-  animation:bgFlow 14s ease-in-out infinite;
 }
-
-@keyframes bgFlow{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
 a,button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 button{border:0;background:none;cursor:pointer}
 a{text-decoration:none}
 
-/* ====== ОБЩИЙ “ПЕРЕЛИВ ТЕКСТА” В ТВОИХ ЦВЕТАХ ====== */
-.shineText{
-  color:transparent;
-  background:linear-gradient(
-    90deg,
-    var(--c2),
-    var(--c1),
-    var(--c4),
-    var(--c3),
-    var(--c5),
-    var(--c2)
-  );
-  background-size:240% auto;
-  -webkit-background-clip:text;
-  background-clip:text;
-  animation:textFlow 9s linear infinite;
-}
-@keyframes textFlow{ to{ background-position:240% 50% } }
-
 /* ---------- HERO VIDEO ---------- */
 .hero{
   position:relative;
-
-  /* теперь как карточка: не на всю ширину */
-  width:min(430px, calc(100% - 32px));
-  margin:16px auto 0;
-
-  /* уменьшено ~на 25% */
-  height:min(42vh,390px);
-  min-height:240px;
-
-  border-radius:26px;
+  width:100%;
+  height:min(56vh,520px);
+  min-height:320px;
   overflow:hidden;
-
   background:#000;
-  box-shadow:var(--shadowBtn);
 }
-
-/* Платиновый НЕОН (видимый) */
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  border:2px solid rgba(255,255,255,.75);
-  box-shadow:
-    0 0 14px var(--neonB),
-    0 0 32px rgba(233,237,245,.55),
-    0 0 60px rgba(201,209,221,.35);
-  pointer-events:none;
-  z-index:4;
-}
-
-/* ВАЖНО: убрали затемнение hero::after (чёрное наложение) */
-
 .heroVideo{
   position:absolute;
   inset:0;
@@ -125,51 +55,12 @@ a{text-decoration:none}
   object-position:center;
   pointer-events:none;
 }
-
-/* ---------- BRAND (logo + peakycats) ---------- */
-.brand{
-  position:absolute;
-  top:14px;
-  left:14px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 10px;
-  border-radius:16px;
-
-  background:rgba(255,255,255,.55);
-  border:1px solid rgba(255,255,255,.70);
-  backdrop-filter:blur(10px);
-  box-shadow:var(--shadowBtn);
-
-  z-index:6;
-  overflow:hidden;
-}
-.brand::after{
+.hero::after{
   content:"";
   position:absolute;
-  inset:-60%;
-  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.60) 50%,transparent 60%);
-  transform:translateX(-50%) rotate(12deg);
-  animation:shimmer 3s linear infinite;
-  mix-blend-mode:screen;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.6));
   pointer-events:none;
-}
-.brandLogo{
-  width:28px;
-  height:28px;
-  border-radius:10px;
-  object-fit:cover;
-  box-shadow:0 0 0 1px rgba(255,255,255,.65);
-  flex:0 0 auto;
-}
-.brandText{
-  font-weight:900;
-  font-size:12px;
-  letter-spacing:.9px;
-  line-height:1;
-  position:relative;
-  z-index:1;
 }
 
 /* MENU BUTTON */
@@ -182,30 +73,12 @@ a{text-decoration:none}
   border-radius:14px;
   display:grid;
   place-items:center;
-
-  /* переливающийся яркий градиент */
-  background:linear-gradient(120deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));
-  background-size:320% 320%;
-  animation:bgFlow 10s ease-in-out infinite;
-
-  border:1px solid rgba(255,255,255,.75);
-  box-shadow:var(--shadowBtn), 0 0 16px rgba(233,237,245,.45);
+  background:rgba(26,20,17,.6);
   backdrop-filter:blur(10px);
-  z-index:6;
-  overflow:hidden;
+  box-shadow:var(--shadow);
+  z-index:5;
 }
-.menuBtn::after{
-  content:"";
-  position:absolute;
-  inset:-60%;
-  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.60) 50%,transparent 60%);
-  transform:translateX(-50%) rotate(12deg);
-  animation:shimmer 3s linear infinite;
-  mix-blend-mode:screen;
-  pointer-events:none;
-}
-@keyframes shimmer{to{transform:translateX(50%) rotate(12deg)}}
-.menuBtn svg{width:22px;height:22px;color:#1C1C1C}
+.menuBtn svg{width:22px;height:22px;color:var(--goldC)}
 .menuBtn:active{transform:scale(.96)}
 
 /* ---------- CONTENT ---------- */
@@ -220,7 +93,14 @@ a{text-decoration:none}
   font-size:clamp(30px,7vw,44px);
   font-weight:900;
   letter-spacing:1.2px;
+  color:transparent;
+  background:linear-gradient(90deg,#fff6cf,var(--goldA),#f2e8c4,var(--goldB),#fff6cf);
+  background-size:220% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  animation:goldFlow 10s linear infinite;
 }
+@keyframes goldFlow{to{background-position:220% 50%}}
 
 .lead{
   margin-top:10px;
@@ -230,14 +110,14 @@ a{text-decoration:none}
   line-height:1.45;
 }
 
-/* ---------- WORK BANNER ---------- */
+/* ---------- BANNERS ---------- */
 .workBanner{
   position:relative;
   margin-top:18px;
   height:120px;
   border-radius:22px;
   overflow:hidden;
-  box-shadow:var(--shadowCard);
+  box-shadow:var(--shadow);
   background:#000;
   display:block;
 }
@@ -254,7 +134,7 @@ a{text-decoration:none}
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.45));
+  background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.65));
   pointer-events:none;
 }
 .workTitle{
@@ -265,10 +145,16 @@ a{text-decoration:none}
   font-size:26px;
   font-weight:900;
   letter-spacing:1px;
+  color:transparent;
+  background:linear-gradient(90deg,#fff6cf,var(--goldA),#f2e8c4,var(--goldB),#fff6cf);
+  background-size:220% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  animation:goldFlow 10s linear infinite;
   text-shadow:0 12px 26px rgba(0,0,0,.45);
 }
 
-/* ---------- PLATINUM BUTTONS ---------- */
+/* ---------- METAL BUTTONS ---------- */
 .grid{
   margin-top:18px;
   display:grid;
@@ -283,51 +169,38 @@ a{text-decoration:none}
   display:flex;
   align-items:center;
   justify-content:center;
+  gap:10px;
+  padding:0 14px;
   font-weight:900;
   letter-spacing:.6px;
-  color:var(--text2);
-
+  color:var(--goldText);
   background:
-    linear-gradient(180deg, rgba(255,255,255,.60), rgba(255,255,255,0) 38%),
-    linear-gradient(120deg,
-      #AEB7C3,
-      var(--plat1),
-      #E8EDF5,
-      var(--plat3),
-      var(--plat2),
-      #E8EDF5,
-      #AEB7C3
-    );
-
-  box-shadow:var(--shadowBtn);
+    linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,0) 36%),
+    linear-gradient(120deg,#8b6a1f,var(--goldD),var(--goldA),var(--goldC),var(--goldB),var(--goldA),#8b6a1f);
+  box-shadow:var(--shadow);
   overflow:hidden;
   user-select:none;
-  transition:transform .15s ease, filter .15s ease;
+  text-align:center;
 }
-
 .metalBtn::after{
   content:"";
   position:absolute;
   inset:-60%;
-  background:linear-gradient(115deg,
-    transparent 40%,
-    rgba(255,255,255,.55) 50%,
-    transparent 60%
-  );
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.45) 50%,transparent 60%);
   transform:translateX(-50%) rotate(12deg);
   animation:shimmer 3s linear infinite;
   mix-blend-mode:screen;
   pointer-events:none;
 }
+@keyframes shimmer{to{transform:translateX(50%) rotate(12deg)}}
+.metalBtn:active{transform:translateY(1px) scale(.98); filter:brightness(.96)}
 
-.metalBtn:active{
-  transform:translateY(1px) scale(.98);
-  filter:brightness(.985);
-}
-
-@media (hover:hover){
-  .metalBtn:hover{ filter:brightness(.995); }
-  .workBanner:hover{transform:translateY(-1px)}
+.tgMini{
+  width:18px;
+  height:18px;
+  flex:0 0 auto;
+  color:rgba(15,17,21,.86);
+  opacity:.95;
 }
 
 /* ---------- MENU SHEET ---------- */
@@ -341,7 +214,7 @@ a{text-decoration:none}
 .sheetShade{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,.40);
+  background:rgba(0,0,0,.55);
 }
 .sheet{
   position:absolute;
@@ -349,61 +222,39 @@ a{text-decoration:none}
   top:0;
   height:100%;
   width:min(86vw,340px);
+  background:rgba(18,14,12,.95);
   padding:18px;
-
-  background:linear-gradient(135deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));
-  background-size:320% 320%;
-  animation:bgFlow 12s ease-in-out infinite;
-
   transform:translateX(100%);
   transition:transform .22s ease-out;
-
-  border-left:1px solid rgba(255,255,255,.65);
-  box-shadow:var(--shadowBtn), 0 0 18px rgba(233,237,245,.35);
-  overflow:hidden;
-}
-.sheet::before{
-  content:"";
-  position:absolute;
-  inset:-70%;
-  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);
-  transform:translateX(-45%) rotate(12deg);
-  animation:shimmer 4.2s linear infinite;
-  mix-blend-mode:screen;
-  pointer-events:none;
 }
 .sheetWrap.active .sheet{transform:none}
-.sheet h2{
-  color:var(--heading);
-  font-weight:900;
-  margin:8px 0 14px;
-  position:relative;
-  z-index:1;
-}
+.sheet h2{color:var(--heading);font-weight:900;margin:8px 0 14px}
 .sheet a{
   display:block;
   padding:14px;
   border-radius:16px;
-  background:rgba(255,255,255,.40);
-  border:1px solid rgba(255,255,255,.60);
+  background:rgba(255,255,255,.04);
   margin-bottom:12px;
-  box-shadow:var(--shadowBtn);
-  position:relative;
-  z-index:1;
+  box-shadow:var(--shadow);
 }
 
-/* ---------- FOOTER ---------- */
 .foot{
   margin-top:18px;
   text-align:center;
   font-size:12px;
-  color:rgba(28,28,28,.75);
+  color:rgba(156,163,175,.9);
 }
 .foot a{
-  color:rgba(28,28,28,.92);
+  color:rgba(230,230,230,.9);
   font-weight:900;
   text-decoration:none;
-  border-bottom:1px dashed rgba(160,170,185,.65);
+  border-bottom:1px dashed rgba(201,162,77,.55);
+}
+
+/* лёгкий hover только на ПК */
+@media (hover:hover){
+  .metalBtn:hover{filter:brightness(.98)}
+  .workBanner:hover{transform:translateY(-1px)}
 }
 </style>
 </head>
@@ -412,13 +263,6 @@ a{text-decoration:none}
 
 <!-- HERO -->
 <section class="hero">
-  <!-- logo + peakycats -->
-  <div class="brand" aria-label="Бренд">
-    <img class="brandLogo" src="logo.jpg" alt="logo"
-         onerror="this.style.display='none'">
-    <div class="brandText shineText">peakycats</div>
-  </div>
-
   <video
     class="heroVideo"
     id="heroVideo"
@@ -442,11 +286,11 @@ a{text-decoration:none}
 </section>
 
 <main class="wrap">
-  <div class="h1 shineText">PEAKYCATS</div>
-  <div class="lead">Нас знают все и ты готов к этой встрече! </div>
+  <div class="h1">PROSTIK UFA</div>
+  <div class="lead">Получить кайф здесь пиздец как Prosto</div>
 
-  <!-- WORK -->
-  <a class="workBanner" href="#" aria-label="Работа">
+  <!-- WORK banner -->
+  <a class="workBanner" href="work.html" aria-label="Работа">
     <video
       class="workVideo"
       id="workVideo"
@@ -461,18 +305,74 @@ a{text-decoration:none}
     >
       <source src="work.mp4" type="video/mp4">
     </video>
-    <div class="workTitle shineText">РАБОТА</div>
+    <div class="workTitle">РАБОТА</div>
   </a>
 
-  <!-- BUTTONS -->
+  <!-- BUTTONS (with Telegram logo) -->
   <section class="grid" aria-label="Кнопки">
-    <a class="metalBtn" href="#">КАНАЛ</a>
-    <a class="metalBtn" href="#">ЧАТ</a>
-    <a class="metalBtn" href="#">ВАКАНСИИ</a>
-    <a class="metalBtn" href="#">СОЗДАТЕЛЬ</a>
-    <a class="metalBtn" href="#">БОТ</a>
-    <a class="metalBtn" href="#">ПОМОЩНИК</a>
+
+    <a class="metalBtn" href="https://clck.ru/3RAxBs">
+      <svg class="tgMini" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M22 4.5c.1-.7-.6-1.1-1.2-.8L2.9 10.7c-.8.3-.8 1.3.1 1.6l4.6 1.5 1.8 5.7c.2.7 1.1.9 1.6.4l2.6-2.5 5 3.7c.6.4 1.4.1 1.5-.7L22 4.5ZM8.9 13.2l9.3-5.8c.4-.2.8.3.4.6l-7.7 7.2-.3 3.4-1.7-5.3Z"/>
+      </svg>
+      КАНАЛ И ЧАТ
+    </a>
+
+    <a class="metalBtn" href="https://clck.ru/3RSeNb">
+      <svg class="tgMini" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M22 4.5c.1-.7-.6-1.1-1.2-.8L2.9 10.7c-.8.3-.8 1.3.1 1.6l4.6 1.5 1.8 5.7c.2.7 1.1.9 1.6.4l2.6-2.5 5 3.7c.6.4 1.4.1 1.5-.7L22 4.5ZM8.9 13.2l9.3-5.8c.4-.2.8.3.4.6l-7.7 7.2-.3 3.4-1.7-5.3Z"/>
+      </svg>
+      СОЗДАТЬ БОТ
+    </a>
+
+    <a class="metalBtn" href="https://clck.ru/3RSeTV">
+      <svg class="tgMini" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M22 4.5c.1-.7-.6-1.1-1.2-.8L2.9 10.7c-.8.3-.8 1.3.1 1.6l4.6 1.5 1.8 5.7c.2.7 1.1.9 1.6.4l2.6-2.5 5 3.7c.6.4 1.4.1 1.5-.7L22 4.5ZM8.9 13.2l9.3-5.8c.4-.2.8.3.4.6l-7.7 7.2-.3 3.4-1.7-5.3Z"/>
+      </svg>
+      БОТ ПРОДАЖ
+    </a>
+
+    <a class="metalBtn" href="https://clck.ru/3RSeTV">
+      <svg class="tgMini" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M22 4.5c.1-.7-.6-1.1-1.2-.8L2.9 10.7c-.8.3-.8 1.3.1 1.6l4.6 1.5 1.8 5.7c.2.7 1.1.9 1.6.4l2.6-2.5 5 3.7c.6.4 1.4.1 1.5-.7L22 4.5ZM8.9 13.2l9.3-5.8c.4-.2.8.3.4.6l-7.7 7.2-.3 3.4-1.7-5.3Z"/>
+      </svg>
+      ИНФО БОТ
+    </a>
+
+    <a class="metalBtn" href="https://clck.ru/3RSeVg">
+      <svg class="tgMini" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M22 4.5c.1-.7-.6-1.1-1.2-.8L2.9 10.7c-.8.3-.8 1.3.1 1.6l4.6 1.5 1.8 5.7c.2.7 1.1.9 1.6.4l2.6-2.5 5 3.7c.6.4 1.4.1 1.5-.7L22 4.5ZM8.9 13.2l9.3-5.8c.4-.2.8.3.4.6l-7.7 7.2-.3 3.4-1.7-5.3Z"/>
+      </svg>
+      САППОРТ
+    </a>
+
+    <a class="metalBtn" href="work.html">
+      <svg class="tgMini" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M22 4.5c.1-.7-.6-1.1-1.2-.8L2.9 10.7c-.8.3-.8 1.3.1 1.6l4.6 1.5 1.8 5.7c.2.7 1.1.9 1.6.4l2.6-2.5 5 3.7c.6.4 1.4.1 1.5-.7L22 4.5ZM8.9 13.2l9.3-5.8c.4-.2.8.3.4.6l-7.7 7.2-.3 3.4-1.7-5.3Z"/>
+      </svg>
+      РАБОТА
+    </a>
+
   </section>
+
+  <!-- CALC banner (below buttons) -->
+  <a class="workBanner" href="calc.html" aria-label="Калькулятор дохода">
+    <video
+      class="workVideo"
+      id="calcVideo"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="metadata"
+      poster="calc.jpg"
+      disablepictureinpicture
+      controlslist="nodownload noplaybackrate noremoteplayback"
+    >
+      <source src="calc.mp4" type="video/mp4">
+    </video>
+    <div class="workTitle">КАЛЬКУЛЯТОР</div>
+  </a>
 
   <footer class="foot">
     Сделано — 🖤 <a href="#">663 design</a>
@@ -484,10 +384,9 @@ a{text-decoration:none}
   <div class="sheetShade" id="closeSheet"></div>
   <aside class="sheet" role="dialog" aria-label="Меню">
     <h2>Меню</h2>
-    <a href="#">Главная</a>
-    <a href="#">Работа</a>
-    <a href="#">Контакты</a>
-    <a href="#">Вакансии</a>
+    <a href="index.html">Главная</a>
+    <a href="calc.html">Калькулятор</a>
+    <a href="work.html">Вакансии</a>
   </aside>
 </div>
 
@@ -501,7 +400,8 @@ window.addEventListener('keydown', (e) => { if(e.key === 'Escape') sheet.classLi
 /* ===== VIDEO AUTOPLAY HARDENING (iOS/Android/PC) ===== */
 const vids = [
   document.getElementById('heroVideo'),
-  document.getElementById('workVideo')
+  document.getElementById('workVideo'),
+  document.getElementById('calcVideo')
 ].filter(Boolean);
 
 function tryPlay(v){
@@ -509,22 +409,18 @@ function tryPlay(v){
   v.muted = true;
   v.playsInline = true;
   const p = v.play();
-  if(p && typeof p.catch === 'function'){ p.catch(()=>{}); }
+  if(p && typeof p.catch === 'function') p.catch(()=>{});
 }
-function kickAll(){ vids.forEach(v => tryPlay(v)); }
+function kickAll(){ vids.forEach(tryPlay); }
 
 kickAll();
 window.addEventListener('load', kickAll);
 ['touchstart','pointerdown','click','scroll'].forEach(evt=>{
   window.addEventListener(evt, kickAll, { once:true, passive:true });
 });
-document.addEventListener('visibilitychange', ()=>{
-  if(!document.hidden) kickAll();
-});
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) kickAll(); });
 vids.forEach(v=>{
-  v.addEventListener('pause', ()=>{
-    if(!document.hidden) tryPlay(v);
-  });
+  v.addEventListener('pause', ()=>{ if(!document.hidden) tryPlay(v); });
 });
 </script>
 
